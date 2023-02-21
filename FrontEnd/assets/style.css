@@ -186,3 +186,26 @@ footer nav ul {
 	margin: 2em
 }
 
+/* Styles CSS apportés par le dev Front-End */
+.filters {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.filters-button {
+	color: #1D6154;
+	background-color: white;
+	border: solid 2px #1D6154;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	margin: 10px;
+	border-radius: 30px;
+}
+
+.filters-button:focus {
+	color: white;
+	background-color: #1D6154;
+}
