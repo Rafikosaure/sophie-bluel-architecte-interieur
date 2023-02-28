@@ -1,15 +1,22 @@
 
 // Récupération des travaux depuis l'API
-const response = fetch("http://localhost:5678/api/works").then(raise => raise.json()).then(works => filterButtons(works));
+const response = fetch("http://localhost:5678/api/works").then(raise => raise.json()).then(data => galleryManager(data));
 
 
-// Fonction d'affichage des éléments
+// Fonction de gestion de la galerie
+function galleryManager(data) {
+    showWorks(data);
+    filterButtons(data);
+};
+
+
+// Fonction d'affichage des travaux
 function showWorks(works) {
     // Itérer sur les travaux
     for (let i = 0; i < works.length; i++) {
         const work = works[i];
         const figureElement = createElements(work);
-        attachElements(figureElement);    
+        attachElements(figureElement);
     };
 };
 
@@ -35,7 +42,11 @@ function attachElements(figureElement) {
 
 
 // Implémentation des boutons de filtres
-function filterButtons(works) {
+function filterButtons(data) {
+    const works = data;
+    const objectsCategoryId = 1;
+    const apartmentsCategoryId = 2;
+    const hotelsAndRestaurantsCategoryId = 3;
     // Bouton pour afficher tous les travaux
     const allWorksFilterButton = document.querySelector(".all");
     allWorksFilterButton.addEventListener("click", () => {
@@ -45,20 +56,20 @@ function filterButtons(works) {
     // Bouton pour filtrer par la catégorie "Objets"
     const objectsFilterButton = document.querySelector(".objects");
     objectsFilterButton.addEventListener("click", () => {
-        const filteredWorks = works.filter(work => work.category.name === "Objets");
+        const filteredWorks = works.filter(work => work.category.id === objectsCategoryId);
         showWorks(filteredWorks);
     });
     // Bouton pour filtrer par la catégorie "Appartements"
     const apartmentsFilterButton = document.querySelector(".apartments");
     apartmentsFilterButton.addEventListener("click", () => {
-        const filteredWorks = works.filter(work => work.category.name === "Appartements");
+        const filteredWorks = works.filter(work => work.category.id === apartmentsCategoryId);
         showWorks(filteredWorks);
     });
     // Bouton pour filtrer par la catégorie "Hôtels & restaurants"
     const hotelsAndRestaurantsFilterButton = document.querySelector(".hotels-and-restaurants");
     hotelsAndRestaurantsFilterButton.addEventListener("click", () => {
-        const filteredWorks = works.filter(work => work.category.name === "Hotels & restaurants");
+        const filteredWorks = works.filter(work => work.category.id === hotelsAndRestaurantsCategoryId);
         showWorks(filteredWorks);
     });
-}
-
+};
+    
