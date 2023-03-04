@@ -62,101 +62,56 @@ function removeElements() {
 // Implémentation des boutons de filtres
 function filterButtons(data) {
     const works = data;
-    let clickCounter = 0;
-    let currentWorks;
     const objectsCategoryId = 1;
     const apartmentsCategoryId = 2;
     const hotelsAndRestaurantsCategoryId = 3;
-    // Bouton pour afficher tous les travaux
-    const allWorksFilterButton = document.querySelector(".all");
-    allWorksFilterButton.addEventListener("click", () => {
-        const filteredWorks = works;
-        if (clickCounter === 0) {
+    const filterButtons = document.querySelectorAll("#filters button");
+    let currentWorks;
+    for (let filter of filterButtons) {
+        filter.addEventListener("click", function () {
+        let buttonTag = this.id;
+        console.log(buttonTag);
+        if (currentWorks === undefined) {
             refreshGallery(works);
-            showWorks(filteredWorks);
-            console.log(currentWorks);
-        } else if (clickCounter > 0 && currentWorks === undefined) {
-            refreshGallery(filteredWorks);
-            showWorks(filteredWorks);
-            currentWorks = undefined;
-            currentWorks = filteredWorks;
-            console.log(currentWorks);
-        } else if (clickCounter > 0 && currentWorks != undefined) {
-            refreshGallery(filteredWorks);
-            showWorks(currentWorks);
-            currentWorks = undefined;
-            currentWorks = filteredWorks;
-            console.log(currentWorks);
         };
-        clickCounter++;
-    });
-    // Bouton pour filtrer par la catégorie "Objets"
-    const objectsFilterButton = document.querySelector(".objects");
-    objectsFilterButton.addEventListener("click", () => {
-        const filteredWorks = works.filter(work => work.category.id === objectsCategoryId);
-        if (clickCounter === 0) {
-            refreshGallery(works);
+        if (buttonTag === "objects") {
+            console.log(currentWorks);
+            if (currentWorks != undefined) {
+                refreshGallery(currentWorks);
+            };
+            const filteredWorks = works.filter(work => work.category.id === objectsCategoryId);
             showWorks(filteredWorks);
+            currentWorks = filteredWorks;
+            
+        } else if (buttonTag === "apartments") {
             console.log(currentWorks);
-        } else if (clickCounter > 0 && currentWorks === undefined) {
-            refreshGallery(filteredWorks);
+            const filteredWorks = works.filter(work => work.category.id === apartmentsCategoryId);
+            if (currentWorks != undefined) {
+                refreshGallery(currentWorks);
+            };
             showWorks(filteredWorks);
-            currentWorks = undefined;
             currentWorks = filteredWorks;
+
+        } else if (buttonTag === "hotels-and-restaurants") {
             console.log(currentWorks);
-        } else if (clickCounter > 0 && currentWorks != undefined) {
-            refreshGallery(filteredWorks);
-            showWorks(currentWorks);
-            currentWorks = undefined;
+            const filteredWorks = works.filter(work => work.category.id === hotelsAndRestaurantsCategoryId);
+            if (currentWorks != undefined) {
+                refreshGallery(currentWorks);
+            };
+            showWorks(filteredWorks);
             currentWorks = filteredWorks;
+
+        } else if (buttonTag === "all") {
             console.log(currentWorks);
+            const filteredWorks = works;
+            if (currentWorks != undefined){
+                refreshGallery(currentWorks);
+            };
+            showWorks(filteredWorks);
+            currentWorks = filteredWorks;
         };
-        clickCounter++;
-    });
-    // Bouton pour filtrer par la catégorie "Appartements"
-    const apartmentsFilterButton = document.querySelector(".apartments");
-    apartmentsFilterButton.addEventListener("click", () => {
-        const filteredWorks = works.filter(work => work.category.id === apartmentsCategoryId);
-        if (clickCounter === 0) {
-            refreshGallery(works);
-            showWorks(filteredWorks);
-            console.log(currentWorks);
-        } else if (clickCounter > 0 && currentWorks === undefined) {
-            refreshGallery(filteredWorks);
-            showWorks(filteredWorks);
-            currentWorks = undefined;
-            currentWorks = filteredWorks;
-            console.log(currentWorks);
-        } else if (clickCounter > 0 && currentWorks != undefined) {
-            refreshGallery(filteredWorks);
-            showWorks(currentWorks);
-            currentWorks = undefined;
-            currentWorks = filteredWorks;
-            console.log(currentWorks);
-        };
-        clickCounter++;
-    });
-    // Bouton pour filtrer par la catégorie "Hôtels & restaurants"
-    const hotelsAndRestaurantsFilterButton = document.querySelector(".hotels-and-restaurants");
-    hotelsAndRestaurantsFilterButton.addEventListener("click", () => {
-        const filteredWorks = works.filter(work => work.category.id === hotelsAndRestaurantsCategoryId);
-        if (clickCounter === 0) {
-            refreshGallery(works);
-            showWorks(filteredWorks);
-            console.log(currentWorks);
-        } else if (clickCounter > 0 && currentWorks === undefined) {
-            refreshGallery(filteredWorks);
-            showWorks(filteredWorks);
-            currentWorks = undefined;
-            currentWorks = filteredWorks;
-            console.log(currentWorks);
-        } else if (clickCounter > 0 && currentWorks != undefined) {
-            refreshGallery(filteredWorks);
-            showWorks(currentWorks);
-            currentWorks = undefined;
-            currentWorks = filteredWorks;
-            console.log(currentWorks);
-        };
-        clickCounter++;
-    });
+        
+    })
+    };
 };
+

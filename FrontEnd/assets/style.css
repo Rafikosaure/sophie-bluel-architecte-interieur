@@ -139,7 +139,7 @@ li:hover {
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -187,25 +187,28 @@ footer nav ul {
 }
 
 /* Styles CSS apportés par le dev Front-End */
-.filters {
+#filters {
 	display: flex;
 	justify-content: center;
 	margin-bottom: 20px;
+	width: auto;
 }
 
-.filters-button {
+#filters button {
 	color: #1D6154;
 	background-color: white;
 	border: solid 2px #1D6154;
+	width: auto;
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 3px;
 	padding-bottom: 3px;
-	margin: 10px;
+	margin: 8px;
 	border-radius: 30px;
+	flex-wrap: wrap;
 }
 
-.filters-button:focus {
+#filters button:focus {
 	color: white;
 	background-color: #1D6154;
-}
+};
