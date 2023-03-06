@@ -47,17 +47,47 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
-body {
+
+
+/* body {
 	max-width: 1140px;
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+} */
+body {
+	max-width: 1400px;
+	margin:auto;
+	font-family: 'Work Sans' ;
+	font-size: 14px;
+	background-color: #FFFEF8;
 }
-header {
+
+
+/* header {
 	display: flex;
 	justify-content: space-between;
 	margin: 50px 0
+} */
+header {
+	max-width: 1140px;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 50px;
 }
+
+/* Ajout (main) du dev front-end */
+main {
+	max-width: 1140px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+
+
 section {
 	margin: 50px 0
 }
@@ -95,9 +125,18 @@ nav li {
 	font-size: 1.2em;
 }
 
+
+/* Modification du dev front-end */
+.nav-login-button {
+	font-weight: bold;
+}
+/* Fin de la modification */
+
+
 li:hover {
 	color: #B1663C;
 }
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -107,8 +146,9 @@ li:hover {
 }
 #introduction img {
 	display: block;
-	margin: auto;
-	width: 80%;
+	/* margin: auto; */
+	/* width: 80%; */
+	width: 90%;
 }
 
 #introduction article {
@@ -135,8 +175,17 @@ li:hover {
 
 .gallery img {
 	width: 100%;
-
 }
+
+
+/* Modification du dev front-end */
+#contact a {
+	color: black;
+	text-align: center;
+}
+/* Fin de la modification */
+
+
 #contact {
 	width: 50%;
 	margin: auto;
@@ -182,7 +231,8 @@ input[type="submit"]{
 
 footer nav ul {
 	display: flex;
-	justify-content: flex-end;
+	/* justify-content: flex-end; */
+	justify-content: center;
 	margin: 2em
 }
 
@@ -196,19 +246,33 @@ footer nav ul {
 
 #filters button {
 	color: #1D6154;
-	background-color: white;
+	background-color: #FFFEF8;
 	border: solid 2px #1D6154;
 	width: auto;
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 3px;
 	padding-bottom: 3px;
-	margin: 8px;
+	margin: 5px;
 	border-radius: 30px;
 	flex-wrap: wrap;
 }
 
 #filters button:focus {
-	color: white;
+	color: #FFFEF8;
 	background-color: #1D6154;
-};
+}
+
+.main-password {
+	height: 700px;
+	padding-bottom: 200px;
+	display: flex;
+}
+
+footer {
+	height: 60px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	background-color: white
+}
