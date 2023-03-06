@@ -137,6 +137,13 @@ li:hover {
 	color: #B1663C;
 }
 
+/* Modification du dev front-end */
+.nav-login-button:hover {
+	color: black;
+}
+/* Fin de la modification */
+
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -242,6 +249,7 @@ footer nav ul {
 	justify-content: center;
 	margin-bottom: 20px;
 	width: auto;
+	flex-wrap: wrap;
 }
 
 #filters button {
@@ -255,7 +263,6 @@ footer nav ul {
 	padding-bottom: 3px;
 	margin: 5px;
 	border-radius: 30px;
-	flex-wrap: wrap;
 }
 
 #filters button:focus {
