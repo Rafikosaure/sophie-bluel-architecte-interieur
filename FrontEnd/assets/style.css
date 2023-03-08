@@ -195,7 +195,8 @@ li:hover {
 /* Modification du dev front-end */
 .contact a {
 	color: black;
-	text-align: center;
+	display: flex;
+	justify-content: center;
 }
 /* Fin de la modification */
 
