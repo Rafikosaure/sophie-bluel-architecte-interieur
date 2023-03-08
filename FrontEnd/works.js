@@ -1,3 +1,7 @@
+const objectsCategoryId = 1;
+const apartmentsCategoryId = 2;
+const hotelsAndRestaurantsCategoryId = 3;
+
 
 // Récupération des travaux depuis l'API
 const response = fetch("http://localhost:5678/api/works").then(raise => raise.json()).then(data => galleryManager(data));
@@ -7,6 +11,7 @@ const response = fetch("http://localhost:5678/api/works").then(raise => raise.js
 function galleryManager(data) {
     showWorks(data);
     filterButtons(data);
+    console.log()
 };
 
 
@@ -62,9 +67,6 @@ function removeElements() {
 // Implémentation des boutons de filtres
 function filterButtons(data) {
     const works = data;
-    const objectsCategoryId = 1;
-    const apartmentsCategoryId = 2;
-    const hotelsAndRestaurantsCategoryId = 3;
     const filterButtons = document.querySelectorAll("#filters button");
     let currentWorks;
     for (let filter of filterButtons) {
@@ -85,21 +87,11 @@ function filterButtons(data) {
             
         } else if (buttonTag === "apartments") {
             console.log(currentWorks);
-            const filteredWorks = works.filter(work => work.category.id === apartmentsCategoryId);
-            if (currentWorks != undefined) {
-                refreshGallery(currentWorks);
-            };
-            showWorks(filteredWorks);
-            currentWorks = filteredWorks;
+            currentWorks = filters(works, currentWorks, apartmentsCategoryId);
 
         } else if (buttonTag === "hotels-and-restaurants") {
             console.log(currentWorks);
-            const filteredWorks = works.filter(work => work.category.id === hotelsAndRestaurantsCategoryId);
-            if (currentWorks != undefined) {
-                refreshGallery(currentWorks);
-            };
-            showWorks(filteredWorks);
-            currentWorks = filteredWorks;
+            currentWorks = filters(works, currentWorks, hotelsAndRestaurantsCategoryId);
 
         } else if (buttonTag === "all") {
             console.log(currentWorks);
@@ -115,3 +107,14 @@ function filterButtons(data) {
     };
 };
 
+
+// Automatisation du processus de filtrage (catégories Appartements et Hôtels & restaurants)
+function filters(works, currentWorks, categoryId) {
+    if (currentWorks != undefined) {
+        refreshGallery(currentWorks);
+    };
+    const filteredWorks = works.filter(work => work.category.id === categoryId);
+    showWorks(filteredWorks);
+    currentWorks = filteredWorks;
+    return currentWorks;
+};
