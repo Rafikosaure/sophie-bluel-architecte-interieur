@@ -17,9 +17,12 @@ loginForm.addEventListener("submit", function(event) {
             console.log(email);
             console.log(password);
             if (data.token) {
+                let token = data.token;
+                console.log(token);
+                localStorage.setItem("token", token);
                 alert("Connexion réussie ! Cliquer sur OK pour revenir à la page d'accueil.")
+                // Redirection vers la page d'accueil
                 window.location = "http://127.0.0.1:5500/FrontEnd/index.html";
-                // Rediriger vers la page de profil
             } else {
                 alert("Identifiants incorrects.");
                 // Afficher un message d'erreur
