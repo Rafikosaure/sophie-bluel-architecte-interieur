@@ -63,6 +63,8 @@ body {
 	background-color: #FFFEF8;
 }
 
+
+/* Ajout (.logged-black-stripe) du dev front-end */
 .logged-black-stripe {
 	height: 50px;
 	background-color: black;
@@ -71,6 +73,7 @@ body {
 	justify-content: center;
 	align-items: center;
 }
+
 
 #publish-changes-button {
 	margin-left: 15px;
@@ -96,14 +99,13 @@ header {
 	margin-top: 50px;
 }
 
+
 /* Ajout (main) du dev front-end */
 main {
 	max-width: 1140px;
 	margin-left: auto;
 	margin-right: auto;
 }
-
-
 
 
 section {
@@ -167,7 +169,6 @@ nav a {
 }
 nav a:hover {
 	color: #B1663C;
-	cursor: pointer;
 }
 
 #fixed-header-login-button {
@@ -176,6 +177,10 @@ nav a:hover {
 
 #fixed-header-login-button:hover {
 	color: black;
+}
+
+#header-logout-button:hover {
+	cursor: pointer;
 }
 /* Fin des modifications */
 
