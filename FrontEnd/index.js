@@ -4,6 +4,9 @@ const hotelsAndRestaurantsCategoryId = 3;
 const headerLoginButton = document.querySelector("#header-login-button");
 const headerLogoutButton = document.querySelector("#header-logout-button");
 const filtersDiv = document.querySelector("#filters");
+const modifyImg = document.querySelector(".image-modify");
+const modifyArticle = document.querySelector(".article-modify");
+const modifyPortfolio = document.querySelector(".portfolio-modify");
 
 
 // Récupération des travaux depuis l'API
@@ -130,6 +133,9 @@ if (localStorage.getItem("token")) {
 } else {
     headerLoginButton.style.display = "block";
     headerLogoutButton.style.display = "none";
+    modifyImg.style.display = "none";
+    modifyArticle.style.display = "none";
+    modifyPortfolio.style.display = "none";
 };
 
 
