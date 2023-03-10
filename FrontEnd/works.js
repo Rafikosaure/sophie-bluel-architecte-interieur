@@ -1,6 +1,8 @@
 const objectsCategoryId = 1;
 const apartmentsCategoryId = 2;
 const hotelsAndRestaurantsCategoryId = 3;
+const headerLoginButton = document.querySelector("#header-login-button");
+const headerLogoutButton = document.querySelector("#header-logout-button");
 
 
 // Récupération des travaux depuis l'API
@@ -11,7 +13,6 @@ const response = fetch("http://localhost:5678/api/works").then(raise => raise.js
 function galleryManager(data) {
     showWorks(data);
     filterButtons(data);
-    console.log()
 };
 
 
@@ -118,3 +119,20 @@ function filters(works, currentWorks, categoryId) {
     currentWorks = filteredWorks;
     return currentWorks;
 };
+
+
+// Gestion de l'affichage en mode connecté/déconnecté
+if (localStorage.getItem("token")) {
+    headerLoginButton.style.display = "none";
+    headerLogoutButton.style.display = "block";
+} else {
+    headerLoginButton.style.display = "block";
+    headerLogoutButton.style.display = "none";
+};
+
+
+// Bouton de déconnexion de la page d'accueil
+headerLogoutButton.addEventListener("click", function () {
+    localStorage.removeItem("token");
+    window.location.replace("index.html");
+});

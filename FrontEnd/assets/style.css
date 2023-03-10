@@ -105,7 +105,6 @@ h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
 }
 
 h2{
@@ -126,7 +125,7 @@ nav li {
 }
 
 
-/* Modification du dev front-end */
+/* Modifications du dev front-end */
 nav a {
 	text-decoration: none;
 	color: black;
@@ -134,23 +133,29 @@ nav a {
 nav a:hover {
 	color: #B1663C;
 }
-.nav-login-button {
+
+#fixed-header-login-button {
 	font-weight: bold;
 }
-/* Fin de la modification */
+
+#fixed-header-login-button:hover {
+	color: black;
+}
+
+#header-logout-button {
+	font-weight: bold;
+}
+
+#header-logout-button:hover {
+	color: black;
+	cursor: pointer;
+}
+/* Fin des modifications */
 
 
 li:hover {
 	color: #B1663C;
 }
-
-/* Modification du dev front-end */
-.nav-login-button:hover {
-	color: black;
-}
-/* Fin de la modification */
-
-
 #introduction {
 	display: flex;
 	align-items: center;
