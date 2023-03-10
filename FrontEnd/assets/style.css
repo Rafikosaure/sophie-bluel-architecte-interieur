@@ -132,6 +132,7 @@ nav a {
 }
 nav a:hover {
 	color: #B1663C;
+	cursor: pointer;
 }
 
 #fixed-header-login-button {
@@ -140,15 +141,6 @@ nav a:hover {
 
 #fixed-header-login-button:hover {
 	color: black;
-}
-
-#header-logout-button {
-	font-weight: bold;
-}
-
-#header-logout-button:hover {
-	color: black;
-	cursor: pointer;
 }
 /* Fin des modifications */
 
