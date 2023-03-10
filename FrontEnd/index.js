@@ -3,6 +3,7 @@ const apartmentsCategoryId = 2;
 const hotelsAndRestaurantsCategoryId = 3;
 const headerLoginButton = document.querySelector("#header-login-button");
 const headerLogoutButton = document.querySelector("#header-logout-button");
+const filtersDiv = document.querySelector("#filters");
 
 
 // Récupération des travaux depuis l'API
@@ -125,6 +126,7 @@ function filters(works, currentWorks, categoryId) {
 if (localStorage.getItem("token")) {
     headerLoginButton.style.display = "none";
     headerLogoutButton.style.display = "block";
+    filtersDiv.style.visibility = "hidden";
 } else {
     headerLoginButton.style.display = "block";
     headerLogoutButton.style.display = "none";
