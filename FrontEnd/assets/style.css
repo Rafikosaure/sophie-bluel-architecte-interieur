@@ -63,6 +63,24 @@ body {
 	background-color: #FFFEF8;
 }
 
+.logged-black-stripe {
+	height: 50px;
+	background-color: black;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#publish-changes-button {
+	margin-left: 15px;
+	padding: 8px;
+	padding-left: 16px;
+	padding-right: 16px;
+	border-radius: 20px;
+	cursor: pointer;
+}
+
 
 /* header {
 	display: flex;

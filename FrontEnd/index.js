@@ -7,6 +7,7 @@ const filtersDiv = document.querySelector("#filters");
 const modifyImg = document.querySelector(".image-modify");
 const modifyArticle = document.querySelector(".article-modify");
 const modifyPortfolio = document.querySelector(".portfolio-modify");
+const loggedBlackStripe = document.querySelector(".logged-black-stripe");
 
 
 // Récupération des travaux depuis l'API
@@ -136,6 +137,7 @@ if (localStorage.getItem("token")) {
     modifyImg.style.display = "none";
     modifyArticle.style.display = "none";
     modifyPortfolio.style.display = "none";
+    loggedBlackStripe.style.display = "none";
 };
 
 
