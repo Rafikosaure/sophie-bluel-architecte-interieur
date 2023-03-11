@@ -184,7 +184,13 @@ const stopPropagation = function(e) {
     e.stopPropagation();
 };
 
-
 document.querySelectorAll(".js-modal").forEach(a => {
     a.addEventListener("click", openModal);
+});
+
+// Intégration du clavier dans le fonctionnement de la modale
+window.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" || e.key === "Esc") {
+        closeModal(e);
+    };
 });
