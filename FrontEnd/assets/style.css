@@ -75,7 +75,9 @@ body {
 }
 
 
-#publish-changes-button {
+#publish-changes-link {
+	background-color: white;
+	color: black;
 	margin-left: 15px;
 	padding: 8px;
 	padding-left: 16px;
