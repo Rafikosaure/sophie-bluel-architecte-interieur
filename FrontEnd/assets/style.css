@@ -339,3 +339,69 @@ footer {
 	align-items: center;
 	background-color: white
 }
+
+
+
+/* Styles CSS de la modale */
+.modal {
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.4);
+}
+
+#modal-title {
+	font-family: 'Work Sans';
+	font-size: 24px;
+	color: black;
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+
+.modal-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow: auto;
+	background-color: white;
+	width: 600px;
+	padding-left: 70px;
+	padding-right: 70px;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	max-width: calc(100vw - 20px);
+	max-height: calc(100vh - 20px);
+}
+
+.transversal-bar {
+	width: 100%;
+	background-color: black;
+	height: 1px;
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
+.modal-add-image-button {
+	background-color: #1D6154;
+	color: white;
+	font-weight: bold;
+	border-style: none;
+	width: 45%;
+	padding: 10px;
+	padding-left: 16px;
+	padding-right: 16px;
+	border-radius: 20px;
+	cursor: pointer;
+}
+
+.modal-delete-gallery {
+	margin-top: 30px;
+	margin-bottom: 20px;
+	text-decoration: none;
+	color: red;
+}

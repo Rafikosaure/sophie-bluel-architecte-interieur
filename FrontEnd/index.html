@@ -12,7 +12,17 @@
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-	<div class="logged-black-stripe"><div><i class="fa-regular fa-pen-to-square"></i> Mode édition</div><a id="publish-changes-link">publier les changements</a></div>
+	<div class="logged-black-stripe"><div><i class="fa-regular fa-pen-to-square"></i> Mode édition</div><a id="publish-changes-link" href="#modal">publier les changements</a></div>
+	<aside id="modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+		<div class="modal-wrapper">
+			
+			<h1 id="modal-title">Galerie photo</h1>
+			<section class="modal-gallery"></section>
+			<div class="transversal-bar"></div>
+			<button class="modal-add-image-button">Ajouter une photo</button>
+			<a class="modal-delete-gallery" href="#">Supprimer la galerie</a>
+		</div>
+	</aside>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
