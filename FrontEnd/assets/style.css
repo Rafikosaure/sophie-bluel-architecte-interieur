@@ -76,6 +76,7 @@ body {
 
 
 #publish-changes-link {
+	text-decoration: none;
 	background-color: white;
 	color: black;
 	margin-left: 15px;
