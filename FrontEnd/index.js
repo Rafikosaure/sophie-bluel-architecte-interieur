@@ -155,6 +155,7 @@ const openModal = function(e) {
     e.preventDefault();
     modal = document.querySelector(e.target.getAttribute("href"));
     focusables = Array.from(modal.querySelectorAll(focusableSelector));
+    focusables[0].focus();
     modal.style.display = null;
     modal.removeAttribute("aria-hidden");
     modal.setAttribute("aria-modal", true);
