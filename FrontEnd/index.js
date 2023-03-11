@@ -78,12 +78,10 @@ function filterButtons(data) {
     for (let filter of filterButtons) {
         filter.addEventListener("click", function () {
         let buttonTag = this.id;
-        console.log(buttonTag);
         if (currentWorks === undefined) {
             refreshGallery(works);
         };
         if (buttonTag === "objects") {
-            console.log(currentWorks);
             if (currentWorks != undefined) {
                 refreshGallery(currentWorks);
             };
@@ -92,15 +90,12 @@ function filterButtons(data) {
             currentWorks = filteredWorks;
             
         } else if (buttonTag === "apartments") {
-            console.log(currentWorks);
             currentWorks = filters(works, currentWorks, apartmentsCategoryId);
 
         } else if (buttonTag === "hotels-and-restaurants") {
-            console.log(currentWorks);
             currentWorks = filters(works, currentWorks, hotelsAndRestaurantsCategoryId);
 
         } else if (buttonTag === "all") {
-            console.log(currentWorks);
             const filteredWorks = works;
             if (currentWorks != undefined){
                 refreshGallery(currentWorks);
