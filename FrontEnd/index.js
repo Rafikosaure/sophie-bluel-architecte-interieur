@@ -150,6 +150,7 @@ headerLogoutButton.addEventListener("click", function () {
 
 // Gestion de la boîte modale
 let modal = null;
+
 // Fonction d'ouverture de la modale
 const openModal = function(e) {
     e.preventDefault();
@@ -159,7 +160,10 @@ const openModal = function(e) {
     target.setAttribute("aria-modal", true);
     modal = target;
     modal.addEventListener("click", closeModal);
+    modal.querySelector(".js-modal-close").addEventListener("click", closeModal);
+    modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
 };
+
 // Fonction de fermeture de la modale
 const closeModal = function(e) {
     if (modal === null) {
@@ -170,8 +174,17 @@ const closeModal = function(e) {
     modal.setAttribute("aria-hidden", "true");
     modal.removeAttribute("aria-modal");
     modal.removeEventListener("click", closeModal);
+    modal.querySelector(".js-modal-close").removeEventListener("click", closeModal);
+    modal.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
     modal = null;
-}
+};
+
+// On ne quitte la modale que si on clique en dehors/sur le bouton "close"
+const stopPropagation = function(e) {
+    e.stopPropagation();
+};
+
+
 document.querySelectorAll(".js-modal").forEach(a => {
     a.addEventListener("click", openModal);
 });
