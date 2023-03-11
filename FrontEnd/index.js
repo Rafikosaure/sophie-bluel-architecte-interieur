@@ -176,13 +176,15 @@ const closeModal = function(e) {
         previouslyFocusedElement.focus();
     };
     e.preventDefault();
-    modal.style.display = "none";
+    window.setTimeout(function() {
+        modal.style.display = "none";
+        modal = null;
+    }, 100);
     modal.setAttribute("aria-hidden", "true");
     modal.removeAttribute("aria-modal");
     modal.removeEventListener("click", closeModal);
     modal.querySelector(".js-modal-close").removeEventListener("click", closeModal);
     modal.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
-    modal = null;
 };
 
 
