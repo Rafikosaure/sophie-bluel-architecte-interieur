@@ -179,7 +179,7 @@ const closeModal = function(e) {
     window.setTimeout(function() {
         modal.style.display = "none";
         modal = null;
-    }, 100);
+    }, 500);
     modal.setAttribute("aria-hidden", "true");
     modal.removeAttribute("aria-modal");
     modal.removeEventListener("click", closeModal);
