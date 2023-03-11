@@ -201,9 +201,16 @@ window.addEventListener("keydown", function (e) {
 const focusInModal = function(e) {
     e.preventDefault();
     let index = focusables.findIndex(f => f === modal.querySelector(":focus"));
-    index++;
+    if (e.shiftKey === true) {
+        index--;
+    } else {
+        index++;
+    };
     if (index >= focusables.length) {
         index = 0;
+    };
+    if (index < 0) {
+        index = focusables.length - 1;
     };
     focusables[index].focus();
 };
