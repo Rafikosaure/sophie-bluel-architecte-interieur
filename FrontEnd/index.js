@@ -155,11 +155,6 @@ let focusables = [];
 let modal = null;
 
 
-document.querySelectorAll(".js-modal").forEach(a => {
-    a.addEventListener("click", openModal);
-});
-
-
 // Fonction d'ouverture de la modale
 const openModal = function(e) {
     e.preventDefault();
@@ -217,3 +212,8 @@ const focusInModal = function(e) {
     };
     focusables[index].focus();
 };
+
+
+document.querySelectorAll(".js-modal").forEach(a => {
+    a.addEventListener("click", openModal);
+});
