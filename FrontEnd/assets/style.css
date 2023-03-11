@@ -357,11 +357,19 @@ footer {
 	animation: fadeIn .3s both;
 }
 
+.modal-close {
+	cursor: pointer;
+	font-size: 20px;
+	width: 100%;
+	display: flex;
+	justify-content: end;
+}
+
 #modal-title {
 	font-family: 'Work Sans';
 	font-size: 24px;
 	color: black;
-	margin-top: 30px;
+	margin-top: 20px;
 	margin-bottom: 20px;
 }
 
@@ -376,13 +384,13 @@ footer {
 	padding-right: 70px;
 	padding-top: 40px;
 	padding-bottom: 40px;
-	max-width: calc(100vw - 20px);
-	max-height: calc(100vh - 20px);
+	max-width: calc(100vw - 25px);
+	max-height: calc(100vh - 25px);
 	animation: slideFromTop .5s both;
 }
 
 .transversal-bar {
-	width: 100%;
+	width: 80%;
 	background-color: black;
 	height: 1px;
 	margin-top: 40px;
@@ -394,7 +402,7 @@ footer {
 	color: white;
 	font-weight: bold;
 	border-style: none;
-	width: 45%;
+	width: 40%;
 	padding: 10px;
 	padding-left: 16px;
 	padding-right: 16px;
