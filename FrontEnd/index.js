@@ -148,6 +148,7 @@ headerLogoutButton.addEventListener("click", function () {
 const focusableSelector = "button, a, input, textarea";
 let focusables = [];
 let modal = null;
+let previouslyFocusedElement = null;
 
 
 // Fonction d'ouverture de la modale
@@ -155,6 +156,7 @@ const openModal = function(e) {
     e.preventDefault();
     modal = document.querySelector(e.target.getAttribute("href"));
     focusables = Array.from(modal.querySelectorAll(focusableSelector));
+    previouslyFocusedElement = document.querySelector(":focus");
     focusables[0].focus();
     modal.style.display = null;
     modal.removeAttribute("aria-hidden");
@@ -169,6 +171,9 @@ const openModal = function(e) {
 const closeModal = function(e) {
     if (modal === null) {
         return
+    };
+    if (previouslyFocusedElement !== null) {
+        previouslyFocusedElement.focus();
     };
     e.preventDefault();
     modal.style.display = "none";
