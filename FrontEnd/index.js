@@ -59,7 +59,9 @@ function createElements(work) {
 // Rattachement au parent
 function attachElements(figureElement) {
     const gallery = document.querySelector(".gallery");
+    const modalGallery = document.querySelector(".modal-gallery");
     gallery.appendChild(figureElement);
+    modalGallery.appendChild(figureElement);
 };
 
 
@@ -162,7 +164,7 @@ const openModal = function(e) {
     modal.removeAttribute("aria-hidden");
     modal.setAttribute("aria-modal", true);
     modal.addEventListener("click", closeModal);
-    modal.querySelector(".js-modal-close").addEventListener("click", closeModal);
+    modal.querySelector(".modal-close-cross").addEventListener("click", closeModal);
     modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
 };
 
@@ -183,7 +185,7 @@ const closeModal = function(e) {
     modal.setAttribute("aria-hidden", "true");
     modal.removeAttribute("aria-modal");
     modal.removeEventListener("click", closeModal);
-    modal.querySelector(".modal-close").removeEventListener("click", closeModal);
+    modal.querySelector(".modal-close-cross").removeEventListener("click", closeModal);
     modal.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
 };
 

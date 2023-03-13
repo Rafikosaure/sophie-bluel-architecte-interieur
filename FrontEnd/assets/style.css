@@ -357,12 +357,24 @@ footer {
 	animation: fadeIn .3s both;
 }
 
-.modal-close {
-	cursor: pointer;
-	font-size: 20px;
-	width: 100%;
+.modal-close-div {
+	width: auto;
 	display: flex;
+	width: 100%;
 	justify-content: end;
+}
+
+.modal-close-cross {
+	font-size: 22px;
+	cursor: pointer;
+}
+
+.modal-display-1 {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
 }
 
 #modal-title {
@@ -387,6 +399,19 @@ footer {
 	max-width: calc(100vw - 25px);
 	max-height: calc(100vh - 25px);
 	animation: slideFromTop .5s both;
+}
+
+.modal-gallery {
+	width: 80%;
+	display: grid;
+	align-self: auto;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 8px;
+	grid-row-gap: 8px;
+}
+
+.modal-gallery img {
+	width: 100%;
 }
 
 .transversal-bar {
