@@ -18,6 +18,7 @@ const response = fetch("http://localhost:5678/api/works").then(raise => raise.js
 function galleryManager(data) {
     showWorks(data);
     filterButtons(data);
+    showModalWorks(data);
 };
 
 
@@ -59,9 +60,7 @@ function createElements(work) {
 // Rattachement au parent
 function attachElements(figureElement) {
     const gallery = document.querySelector(".gallery");
-    const modalGallery = document.querySelector(".modal-gallery");
     gallery.appendChild(figureElement);
-    modalGallery.appendChild(figureElement);
 };
 
 
@@ -82,14 +81,10 @@ function filterButtons(data) {
         let buttonTag = this.id;
         if (currentWorks === undefined) {
             refreshGallery(works);
+            console.log(works);
         };
         if (buttonTag === "objects") {
-            if (currentWorks != undefined) {
-                refreshGallery(currentWorks);
-            };
-            const filteredWorks = works.filter(work => work.category.id === objectsCategoryId);
-            showWorks(filteredWorks);
-            currentWorks = filteredWorks;
+            currentWorks = filters(works, currentWorks, objectsCategoryId);
             
         } else if (buttonTag === "apartments") {
             currentWorks = filters(works, currentWorks, apartmentsCategoryId);
@@ -99,8 +94,11 @@ function filterButtons(data) {
 
         } else if (buttonTag === "all") {
             const filteredWorks = works;
-            if (currentWorks != undefined){
+            if (currentWorks != undefined) {
                 refreshGallery(currentWorks);
+            };
+            if (currentWorks === undefined) {
+                refreshGallery(works);
             };
             showWorks(filteredWorks);
             currentWorks = filteredWorks;
@@ -111,10 +109,13 @@ function filterButtons(data) {
 };
 
 
-// Automatisation du processus de filtrage (catégories Appartements et Hôtels & restaurants)
+// Automatisation du processus de filtrage (catégories Objets, Appartements et Hôtels & restaurants)
 function filters(works, currentWorks, categoryId) {
     if (currentWorks != undefined) {
         refreshGallery(currentWorks);
+    };
+    if (currentWorks === undefined) {
+        refreshGallery(works);
     };
     const filteredWorks = works.filter(work => work.category.id === categoryId);
     showWorks(filteredWorks);
@@ -166,6 +167,7 @@ const openModal = function(e) {
     modal.addEventListener("click", closeModal);
     modal.querySelector(".modal-close-cross").addEventListener("click", closeModal);
     modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
+    showModalWorks(works);
 };
 
 
@@ -229,3 +231,32 @@ const focusInModal = function(e) {
 document.querySelectorAll(".js-modal").forEach(a => {
     a.addEventListener("click", openModal);
 });
+
+
+// Affichage des travaux dans la modale
+function showModalWorks(works) {
+    // Itérer sur les travaux
+    for (let i = 0; i < works.length; i++) {
+        const work = works[i];
+        const modalFigureElement = createModalElements(work);
+        attachModalElements(modalFigureElement);
+    };
+};
+
+
+// Fonction de création des éléments dans la modale
+function createModalElements(work) {
+    const modalImageElement = document.createElement("img");
+    modalImageElement.src = work.imageUrl;
+    const modalFigureElement = document.createElement("figure");
+    modalFigureElement.setAttribute("id", "figureElement");
+    modalFigureElement.appendChild(modalImageElement);
+    return modalFigureElement;
+};
+
+
+// Fonction de rattachement au parent dans la modale
+function attachModalElements(modalFigureElement) {
+    const modalGallery = document.querySelector(".modal-gallery");
+    modalGallery.appendChild(modalFigureElement);
+};
