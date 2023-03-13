@@ -382,7 +382,7 @@ footer {
 	font-size: 24px;
 	color: black;
 	margin-top: 20px;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 .modal-wrapper {
@@ -404,8 +404,8 @@ footer {
 .modal-gallery {
 	width: 80%;
 	display: grid;
-	align-self: auto;
 	grid-template-columns: repeat(5, 18%);
+	justify-content: center;
 	grid-column-gap: 8px;
 	grid-row-gap: 8px;
 }
@@ -418,7 +418,7 @@ footer {
 	width: 80%;
 	background-color: black;
 	height: 1px;
-	margin-top: 40px;
+	margin-top: 10px;
 	margin-bottom: 40px;
 }
 
