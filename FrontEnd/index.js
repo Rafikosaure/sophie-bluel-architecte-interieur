@@ -67,6 +67,7 @@ function attachElements(figureElement) {
 // Fonction de suppression des éléments
 function removeElements() {
     const figureRemoved = document.getElementById("figureElement");
+    console.log("Contenu de figureElement avant sa suppression : " + figureRemoved);
     figureRemoved.remove();
 };
 
@@ -79,10 +80,6 @@ function filterButtons(data) {
     for (let filter of filterButtons) {
         filter.addEventListener("click", function () {
         let buttonTag = this.id;
-        if (currentWorks === undefined) {
-            refreshGallery(works);
-            console.log(works);
-        };
         if (buttonTag === "objects") {
             currentWorks = filters(works, currentWorks, objectsCategoryId);
             
@@ -96,14 +93,12 @@ function filterButtons(data) {
             const filteredWorks = works;
             if (currentWorks != undefined) {
                 refreshGallery(currentWorks);
-            };
-            if (currentWorks === undefined) {
+            } else if (currentWorks === undefined) {
                 refreshGallery(works);
             };
             showWorks(filteredWorks);
             currentWorks = filteredWorks;
         };
-        
     });
     };
 };
@@ -111,10 +106,11 @@ function filterButtons(data) {
 
 // Automatisation du processus de filtrage (catégories Objets, Appartements et Hôtels & restaurants)
 function filters(works, currentWorks, categoryId) {
-    if (currentWorks != undefined) {
+    if (currentWorks !== undefined) {
+        console.log("Si currentWorks a une valeur : " + currentWorks);
         refreshGallery(currentWorks);
-    };
-    if (currentWorks === undefined) {
+    } else if (currentWorks === undefined) {
+        console.log("Si currentWorks ne contient rien : " + currentWorks);
         refreshGallery(works);
     };
     const filteredWorks = works.filter(work => work.category.id === categoryId);
