@@ -104,9 +104,9 @@ header {
 .header-main-content {
 	display: flex;
 	flex-direction: row;
-	max-width: 100%;
-	margin-left: 9%;
-	margin-right: 9%;
+	width: 81%;
+	margin-left: auto;
+	margin-right: auto;
 	justify-content: space-between;
 	margin-top: 40px;
 }
