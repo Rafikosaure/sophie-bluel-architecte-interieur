@@ -414,13 +414,35 @@ footer {
 	width: 80%;
 	display: grid;
 	grid-template-columns: repeat(5, 18%);
-	justify-content: center;
+	justify-content: space-between;
 	grid-column-gap: 8px;
 	grid-row-gap: 8px;
 }
 
 .modal-gallery img {
 	width: 100%;
+}
+
+#modal-figure-element {
+	position: relative;
+}
+
+/* Ici : icone "poubelle" (modale) */
+.fa-trash-can {
+	color: white;
+	font-size: 14px;
+}
+
+.delete-button {
+	position: absolute;
+	z-index: 1;
+	top: 5px;
+	right: 5px;
+	padding: 4px;
+	border: none;
+	border-radius: 2px;
+	background-color: black;
+	cursor: pointer;
 }
 
 .transversal-bar {

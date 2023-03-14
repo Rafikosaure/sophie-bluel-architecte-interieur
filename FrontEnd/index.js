@@ -273,9 +273,19 @@ function showModalWorks(works) {
 function createModalElements(work) {
     const modalImageElement = document.createElement("img");
     modalImageElement.src = work.imageUrl;
+    const deleteButton = document.createElement("button");
+    deleteButton.setAttribute("id", work.id);
+    deleteButton.classList.add("delete-button");
+    const deleteIcon = document.createElement("i");
+    deleteIcon.classList.add("fa-solid", "fa-trash-can");
+    deleteButton.appendChild(deleteIcon);
+    const modalFigureCaption = document.createElement("figcaption");
+    modalFigureCaption.innerText = "éditer";
     const modalFigureElement = document.createElement("figure");
-    modalFigureElement.setAttribute("id", "figureElement");
+    modalFigureElement.setAttribute("id", "modal-figure-element");
     modalFigureElement.appendChild(modalImageElement);
+    modalFigureElement.appendChild(deleteButton);
+    modalFigureElement.appendChild(modalFigureCaption);
     return modalFigureElement;
 };
 
