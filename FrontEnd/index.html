@@ -12,24 +12,12 @@
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-	<div class="logged-black-stripe"><div><i class="fa-regular fa-pen-to-square"></i> Mode édition</div><a id="publish-changes-link" class="js-modal" href="#modal">publier les changements</a></div>
-	<aside id="modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title" style="display: none;">
-		<div class="modal-wrapper js-modal-stop">
-			<div class="modal-close-div">
-				<i class="fa-sharp fa-solid fa-xmark modal-close-cross"></i>
-			</div>
-			<div class="modal-display-1">
-				<h1 id="modal-title">Galerie photo</h1>
-				<section class="modal-gallery"></section>
-				<div class="transversal-bar"></div>
-				<button class="modal-add-image-button">Ajouter une photo</button>
-				<a class="modal-delete-gallery" href="#">Supprimer la galerie</a>
-			</div>
-			
-		</div>
-	</aside>
+	
+	
 <header>
-	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+	<div class="logged-black-stripe"><div><i class="fa-regular fa-pen-to-square"></i> Mode édition</div><a id="publish-changes-link" class="js-modal" href="#modal">publier les changements</a></div>
+	<div class="header-main-content">
+		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li><a href="#projects">projets</a></li>
@@ -38,6 +26,8 @@
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
+	</div>
+	
 </header>
 <main>
 	<section id="introduction">
@@ -77,6 +67,20 @@
 			<input type="submit" value="Envoyer">
 		</form>
 	</section>
+	<aside id="modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title" style="display: none;">
+		<div class="modal-wrapper js-modal-stop">
+			<div class="modal-close-div">
+				<i class="fa-sharp fa-solid fa-xmark modal-close-cross"></i>
+			</div>
+			<div class="modal-display-1">
+				<h1 id="modal-title">Galerie photo</h1>
+				<section class="modal-gallery"></section>
+				<div class="transversal-bar"></div>
+				<button class="modal-add-image-button">Ajouter une photo</button>
+				<a class="modal-delete-gallery" href="#">Supprimer la galerie</a>
+			</div>
+		</div>
+	</aside>
 </main>
 
 <footer>
