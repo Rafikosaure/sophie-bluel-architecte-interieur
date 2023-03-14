@@ -1,21 +1,16 @@
 const objectsCategoryId = 1;
 const apartmentsCategoryId = 2;
 const hotelsAndRestaurantsCategoryId = 3;
-const headerLoginButton = document.querySelector("#header-login-button");
-const headerLogoutButton = document.querySelector("#header-logout-button");
-const filtersDiv = document.querySelector("#filters");
-const modifyImg = document.querySelector(".image-modify");
-const modifyArticle = document.querySelector(".article-modify");
-const modifyPortfolio = document.querySelector(".portfolio-modify");
-const loggedBlackStripe = document.querySelector(".logged-black-stripe");
 
 
 // Récupération des travaux depuis l'API
-const response = fetch("http://localhost:5678/api/works").then(raise => raise.json()).then(data => galleryManager(data));
+const response = fetch("http://localhost:5678/api/works").then(raise => raise.json()).then(data => pageManager(data));
 
 
-// Fonction de gestion de la galerie
-function galleryManager(data) {
+// Fonction de gestion de la page
+function pageManager(data) {
+    loginLogoutDisplay();
+    logoutMainPage();
     showWorks(data);
     filterButtons(data);
     showModalWorks(data);
@@ -104,7 +99,7 @@ function filterButtons(data) {
             currentWorks = filteredWorks;
         };
         
-    })
+    });
     };
 };
 
@@ -125,25 +120,44 @@ function filters(works, currentWorks, categoryId) {
 
 
 // Gestion de l'affichage en mode connecté/déconnecté
-if (localStorage.getItem("token")) {
-    headerLoginButton.style.display = "none";
-    headerLogoutButton.style.display = "block";
-    filtersDiv.style.visibility = "hidden";
-} else {
-    headerLoginButton.style.display = "block";
-    headerLogoutButton.style.display = "none";
-    modifyImg.style.display = "none";
-    modifyArticle.style.display = "none";
-    modifyPortfolio.style.display = "none";
-    loggedBlackStripe.style.display = "none";
+const headerLoginButton = document.querySelector("#header-login-button");
+const headerLogoutButton = document.querySelector("#header-logout-button");
+const filtersDiv = document.querySelector("#filters");
+const modifyImg = document.querySelector(".image-modify");
+const modifyArticle = document.querySelector(".article-modify");
+const modifyPortfolio = document.querySelector(".portfolio-modify");
+const loggedBlackStripe = document.querySelector(".logged-black-stripe");
+
+function loginLogoutDisplay() {
+    if (localStorage.getItem("token")) {
+        headerLoginButton.style.display = "none";
+        headerLogoutButton.style.display = "block";
+        filtersDiv.style.visibility = "hidden";
+    } else {
+        headerLoginButton.style.display = "block";
+        headerLogoutButton.style.display = "none";
+        modifyImg.style.display = "none";
+        modifyArticle.style.display = "none";
+        modifyPortfolio.style.display = "none";
+        loggedBlackStripe.style.display = "none";
+    };
 };
 
 
 // Bouton de déconnexion de la page d'accueil
-headerLogoutButton.addEventListener("click", function () {
-    localStorage.removeItem("token");
-    window.location.replace("index.html");
-});
+function logoutMainPage() {
+    headerLogoutButton.addEventListener("click", function () {
+        localStorage.removeItem("token");
+        filtersDiv.style.visibility = "visible";
+        headerLoginButton.style.display = "block";
+        headerLogoutButton.style.display = "none";
+        modifyImg.style.display = "none";
+        modifyArticle.style.display = "none";
+        modifyPortfolio.style.display = "none";
+        loggedBlackStripe.style.display = "none";
+    });
+};
+
 
 
 
