@@ -9,10 +9,15 @@ const response = fetch("http://localhost:5678/api/works").then(raise => raise.js
 
 // Fonction de gestion de la page
 function pageManager(data) {
+    // Authentification
     loginLogoutDisplay();
     logoutMainPage();
+    // Galerie principale
     showWorks(data);
     filterButtons(data);
+    // Modale
+    openModalButton();
+    escapeAndTabKeys();
     showModalWorks(data);
 };
 
@@ -213,14 +218,17 @@ const stopPropagation = function(e) {
 
 
 // La touche "Echap" ferme la modale & la touche "Tab" change le focus
-window.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" || e.key === "Esc") {
-        closeModal(e);
-    };
-    if (e.key === "Tab" && modal !== null) {
-        focusInModal(e)
-    };
-});
+function escapeAndTabKeys() {
+    window.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" || e.key === "Esc") {
+            closeModal(e);
+        };
+        if (e.key === "Tab" && modal !== null) {
+            focusInModal(e)
+        };
+    });
+};
+
 
 
 // Le focus des tabulations reste à l'intérieur de la modale
@@ -242,9 +250,12 @@ const focusInModal = function(e) {
 };
 
 
-document.querySelectorAll(".js-modal").forEach(a => {
+// Boutons d'ouverture de la modale
+function openModalButton() {
+    document.querySelectorAll(".js-modal").forEach(a => {
     a.addEventListener("click", openModal);
-});
+    });
+};
 
 
 // Affichage des travaux dans la modale

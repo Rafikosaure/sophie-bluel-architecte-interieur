@@ -1,8 +1,8 @@
 const loginForm = document.getElementById("login-form");
 // const loginButton = document.getElementById("login-button");
 
-
-loginForm.addEventListener("submit", function(event) {
+function loginFormManager() {
+    loginForm.addEventListener("submit", function(event) {
     event.preventDefault();
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -26,4 +26,7 @@ loginForm.addEventListener("submit", function(event) {
         };
     })
     .catch(error => console.error(error));
-});
+    });
+};
+
+loginFormManager();
