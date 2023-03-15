@@ -430,7 +430,7 @@ footer {
 /* Ici : icone "poubelle" (modale) */
 .fa-trash-can {
 	color: white;
-	font-size: 14px;
+	font-size: 12px;
 }
 
 .delete-button {
@@ -442,8 +442,8 @@ footer {
 	border: none;
 	border-radius: 2px;
 	background-color: black;
-	/* width: 22px;
-	height: 22px; */
+	width: 22px;
+	height: 22px;
 	cursor: pointer;
 }
 
