@@ -286,3 +286,20 @@ function attachModalElements(modalFigureElement) {
     const modalGallery = document.querySelector(".modal-gallery");
     modalGallery.appendChild(modalFigureElement);
 };
+
+
+// Fonction de suppression des travaux dans la modale
+function deleteModalWorks(work) {
+    deleteButton.addEventListener("click", function () {
+        if (work.id === deleteButton.id) {
+            fetch(`http://localhost:5678/api/works/${work}`, {
+                method: "DELETE"
+            })
+            .then((response) => response.json())
+            .then(data => {
+                alert("L'oeuvre a bien été supprimée.");
+            })
+            .catch(error => console.log(error));
+        };
+    });
+};
