@@ -104,7 +104,7 @@ function filterButtons(data) {
 };
 
 
-// Automatisation du processus de filtrage (catégories Objets, Appartements et Hôtels & restaurants)
+// Fonction de filtrage
 function filters(works, currentWorks, categoryId) {
     if (currentWorks !== undefined) {
         console.log("Si currentWorks a une valeur : " + currentWorks);
@@ -150,12 +150,7 @@ function logoutMainPage() {
     headerLogoutButton.addEventListener("click", function () {
         localStorage.removeItem("token");
         filtersDiv.style.visibility = "visible";
-        headerLoginButton.style.display = "block";
-        headerLogoutButton.style.display = "none";
-        modifyImg.style.display = "none";
-        modifyArticle.style.display = "none";
-        modifyPortfolio.style.display = "none";
-        loggedBlackStripe.style.display = "none";
+        loginLogoutDisplay();
     });
 };
 
