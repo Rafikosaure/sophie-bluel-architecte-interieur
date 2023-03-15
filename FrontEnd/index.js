@@ -140,6 +140,7 @@ function loginLogoutDisplay() {
         modifyImg.style.display = "none";
         modifyArticle.style.display = "none";
         modifyPortfolio.style.display = "none";
+        filtersDiv.style.visibility = "visible";
         loggedBlackStripe.style.display = "none";
     };
 };
@@ -149,7 +150,6 @@ function loginLogoutDisplay() {
 function logoutMainPage() {
     headerLogoutButton.addEventListener("click", function () {
         localStorage.removeItem("token");
-        filtersDiv.style.visibility = "visible";
         loginLogoutDisplay();
     });
 };
