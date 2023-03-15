@@ -442,6 +442,8 @@ footer {
 	border: none;
 	border-radius: 2px;
 	background-color: black;
+	/* width: 22px;
+	height: 22px; */
 	cursor: pointer;
 }
 
