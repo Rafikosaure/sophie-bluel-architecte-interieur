@@ -19,6 +19,7 @@ function pageManager(data) {
     openModalButton();
     escapeAndTabKeys();
     showModalWorks(data);
+    // updateModalGallery(data);
 };
 
 
@@ -177,7 +178,6 @@ const openModal = function(e) {
     modal.addEventListener("click", closeModal);
     modal.querySelector(".modal-close-cross").addEventListener("click", closeModal);
     modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
-    showModalWorks(works);
 };
 
 
@@ -256,6 +256,7 @@ function showModalWorks(works) {
         const work = works[i];
         const modalFigureElement = createModalElements(work);
         attachModalElements(modalFigureElement);
+        deleteModalWork(work);
     };
 };
 
@@ -288,18 +289,22 @@ function attachModalElements(modalFigureElement) {
 };
 
 
-// Fonction de suppression des travaux dans la modale
-function deleteModalWorks(work) {
-    deleteButton.addEventListener("click", function () {
-        if (work.id === deleteButton.id) {
-            fetch(`http://localhost:5678/api/works/${work}`, {
-                method: "DELETE"
-            })
-            .then((response) => response.json())
-            .then(data => {
-                alert("L'oeuvre a bien été supprimée.");
-            })
-            .catch(error => console.log(error));
-        };
-    });
-};
+// Boutons "poubelle" pour supprimer des travaux dans la modale
+function deleteModalWork(work) {
+    const token = localStorage.getItem("token");
+    const deleteButton = document.getElementById(work.id);
+    console.log(deleteButton);
+    deleteButton.addEventListener("click", function() {
+        console.log(deleteButton);
+        fetch("http://localhost:5678/api/works/" + work.id, {
+
+                method: "DELETE",
+                headers: {
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+        })
+        .then(console.log("Oeuvre supprimée !"))
+        .catch(console.log("La suppression a échoué !"))
+    })
+}
