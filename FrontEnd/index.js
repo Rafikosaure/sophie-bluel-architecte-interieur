@@ -19,7 +19,6 @@ function pageManager(data) {
     openModalButton();
     escapeAndTabKeys();
     showModalWorks(data);
-    // updateModalGallery(data);
 };
 
 
@@ -256,7 +255,7 @@ function showModalWorks(works) {
         const work = works[i];
         const modalFigureElement = createModalElements(work);
         attachModalElements(modalFigureElement);
-        deleteModalWork(work);
+        deleteOneModalWork(work);
     };
 };
 
@@ -290,11 +289,12 @@ function attachModalElements(modalFigureElement) {
 
 
 // Boutons "poubelle" pour supprimer des travaux dans la modale
-function deleteModalWork(work) {
+function deleteOneModalWork(work) {
     const token = localStorage.getItem("token");
     const deleteButton = document.getElementById(work.id);
     console.log(deleteButton);
-    deleteButton.addEventListener("click", function() {
+    deleteButton.addEventListener("click", function(e) {
+        e.preventDefault();
         console.log(deleteButton);
         fetch("http://localhost:5678/api/works/" + work.id, {
 
@@ -307,4 +307,4 @@ function deleteModalWork(work) {
         .then(console.log("Oeuvre supprimée !"))
         .catch(console.log("La suppression a échoué !"))
     })
-}
+};
