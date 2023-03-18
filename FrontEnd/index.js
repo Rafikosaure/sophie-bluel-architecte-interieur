@@ -295,6 +295,8 @@ function deleteOneModalWork(work) {
     console.log(deleteButton);
     deleteButton.addEventListener("click", function(e) {
         e.preventDefault();
+        removeElements();
+        removeModalElements();        
         console.log(deleteButton);
         fetch("http://localhost:5678/api/works/" + work.id, {
 
@@ -306,5 +308,14 @@ function deleteOneModalWork(work) {
         })
         .then(console.log("Oeuvre supprimée !"))
         .catch(console.log("La suppression a échoué !"))
-    })
+    });
+    
+};
+
+
+// Galerie de la modale : fonction de suppression des éléments du DOM
+function removeModalElements() {
+    const modalFigureRemoved = document.getElementById("modal-figure-element");
+    console.log("Contenu de modalfigureElement avant sa suppression : " + modalFigureRemoved);
+    modalFigureRemoved.remove();
 };
