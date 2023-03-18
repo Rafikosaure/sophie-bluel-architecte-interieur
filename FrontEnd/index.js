@@ -12,28 +12,29 @@ function pageManager(data) {
     // Authentification
     loginLogoutDisplay();
     logoutMainPage();
-    // Galerie principale
+    // Galerie principale & modale
     showWorks(data);
     filterButtons(data);
-    // Modale
     openModalButton();
     escapeAndTabKeys();
-    showModalWorks(data);
 };
 
 
-// Fonction d'affichage des travaux
+// Fonction d'affichage des travaux dans les galeries
 function showWorks(works) {
     // Itérer sur les travaux
     for (let i = 0; i < works.length; i++) {
         const work = works[i];
         const figureElement = createElements(work);
         attachElements(figureElement);
+        const modalFigureElement = createModalElements(work);
+        attachModalElements(modalFigureElement);
+        deleteOneModalWork(work, figureElement, modalFigureElement);
     };
 };
 
 
-// Fonction de rafraichissement de la galerie
+// Fonction de rafraichissement de la galerie principale
 function refreshGallery(works) {
     // Itérer sur les travaux
     for (let i = 0; i < works.length; i++) {
@@ -43,7 +44,7 @@ function refreshGallery(works) {
 };
 
 
-// Création des éléments
+// Création des éléments (galerie principale)
 function createElements(work) {
     const imageElement = document.createElement("img");
     imageElement.src = work.imageUrl;
@@ -57,14 +58,14 @@ function createElements(work) {
 };
 
 
-// Rattachement au parent
+// Rattachement au parent (galerie principale)
 function attachElements(figureElement) {
     const gallery = document.querySelector(".gallery");
     gallery.appendChild(figureElement);
 };
 
 
-// Fonction de suppression des éléments
+// Fonction de suppression des éléments (galerie principale)
 function removeElements() {
     const figureRemoved = document.getElementById("figureElement");
     console.log("Contenu de figureElement avant sa suppression : " + figureRemoved);
@@ -72,7 +73,7 @@ function removeElements() {
 };
 
 
-// Implémentation des boutons de filtres
+// Boutons de filtres
 function filterButtons(data) {
     const works = data;
     const filterButtons = document.querySelectorAll("#filters button");
@@ -220,7 +221,6 @@ function escapeAndTabKeys() {
 };
 
 
-
 // Le focus des tabulations reste à l'intérieur de la modale
 const focusInModal = function(e) {
     e.preventDefault();
@@ -245,18 +245,6 @@ function openModalButton() {
     document.querySelectorAll(".js-modal").forEach(a => {
     a.addEventListener("click", openModal);
     });
-};
-
-
-// Affichage des travaux dans la modale
-function showModalWorks(works) {
-    // Itérer sur les travaux
-    for (let i = 0; i < works.length; i++) {
-        const work = works[i];
-        const modalFigureElement = createModalElements(work);
-        attachModalElements(modalFigureElement);
-        deleteOneModalWork(work);
-    };
 };
 
 
@@ -288,15 +276,15 @@ function attachModalElements(modalFigureElement) {
 };
 
 
-// Boutons "poubelle" pour supprimer des travaux dans la modale
-function deleteOneModalWork(work) {
+// Modale: boutons "poubelle" pour supprimer des travaux
+function deleteOneModalWork(work, figureElement, modalFigureElement) {
     const token = localStorage.getItem("token");
     const deleteButton = document.getElementById(work.id);
     console.log(deleteButton);
     deleteButton.addEventListener("click", function(e) {
         e.preventDefault();
-        removeElements();
-        removeModalElements();        
+        modalFigureElement.remove();
+        figureElement.remove();
         console.log(deleteButton);
         fetch("http://localhost:5678/api/works/" + work.id, {
 
@@ -309,13 +297,4 @@ function deleteOneModalWork(work) {
         .then(console.log("Oeuvre supprimée !"))
         .catch(console.log("La suppression a échoué !"))
     });
-    
-};
-
-
-// Galerie de la modale : fonction de suppression des éléments du DOM
-function removeModalElements() {
-    const modalFigureRemoved = document.getElementById("modal-figure-element");
-    console.log("Contenu de modalfigureElement avant sa suppression : " + modalFigureRemoved);
-    modalFigureRemoved.remove();
 };
