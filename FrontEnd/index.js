@@ -17,6 +17,7 @@ function pageManager(data) {
     filterButtons(data);
     openModalButton();
     escapeAndTabKeys();
+    switchModalDisplay();
 };
 
 
@@ -298,3 +299,27 @@ function deleteOneModalWork(work, figureElement, modalFigureElement) {
         .catch(console.log("La suppression a échoué !"))
     });
 };
+
+
+// Mise à jour de l'affichage de la modale
+const modalAddImageButton = document.querySelector(".modal-add-image-button");
+const modalBackArrow = document.querySelector(".modal-back-arrow");
+const modalDisplay1 = document.querySelector(".modal-display-1");
+const modalDisplay2 = document.querySelector(".modal-display-2");
+function switchModalDisplay() {
+    // Affichage "Galerie photo"
+    modalBackArrow.addEventListener("click", function() {
+        modalDisplay1.style.display = "flex";
+        modalDisplay2.style.display = "none";
+        modalBackArrow.style.visibility = "hidden";
+    });
+    // Affichage "Ajout photo"
+    modalAddImageButton.addEventListener("click", function() {
+        modalBackArrow.style.visibility = "visible";
+        modalDisplay1.style.display = "none";
+        modalDisplay2.style.display = "flex";
+    });
+};
+
+
+

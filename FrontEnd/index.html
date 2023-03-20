@@ -70,15 +70,38 @@
 	</section>
 	<aside id="modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title" style="display: none;">
 		<div class="modal-wrapper js-modal-stop">
-			<div class="modal-close-div">
-				<i class="fa-sharp fa-solid fa-xmark modal-close-cross"></i>
+			<div class="modal-top-div">
+				<i class="fa-solid fa-arrow-left modal-top-icon modal-back-arrow"></i>
+				<i class="fa-sharp fa-solid fa-xmark modal-top-icon modal-close-cross"></i>
 			</div>
 			<div class="modal-display-1">
 				<h1 id="modal-title">Galerie photo</h1>
 				<section class="modal-gallery"></section>
-				<div class="transversal-bar"></div>
+				<div class="transversal-bar-1"></div>
 				<button class="modal-add-image-button">Ajouter une photo</button>
 				<a class="modal-delete-gallery" href="#">Supprimer la galerie</a>
+			</div>
+			<div class="modal-display-2">
+				<h1 id="modal-title">Ajout photo</h1>
+				<form class="modal-form">
+					<div class="modal-form-img-zone">
+						<label for="file">+ Ajouter photo</label>
+						<input type="file" id="file" name="file" accept=".png, .jpg, .jpeg">
+						<p>jpg, png : 4mo max</p>
+					</div>
+					<label class="modal-form-label" for="title">Titre</label>
+					<input class="modal-form-enter-data" type="text" id="title" name="title">
+					<label class="modal-form-label" for="category">Catégorie</label>
+					<select class="modal-form-enter-data" name="category" id="category">
+						<option value="objects">Objets</option>
+						<option value="apartments">Appartements</option>
+						<option value="hotels-and-restaurants">Hôtels & restaurants</option>
+						<option value="other">Autre</option>
+					</select>
+					<div class="transversal-bar-2"></div>
+					<div class="modal-form-div-submit"><button type="submit">Valider</button></div>
+					
+				</form>
 			</div>
 		</div>
 	</aside>
