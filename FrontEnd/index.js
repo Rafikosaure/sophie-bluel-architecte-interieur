@@ -169,6 +169,9 @@ let previouslyFocusedElement = null;
 // Fonction d'ouverture de la modale
 const openModal = function(e) {
     e.preventDefault();
+    const modalBackArrow = document.querySelector(".modal-back-arrow");
+    const modalDisplay1 = document.querySelector(".modal-display-1");
+    const modalDisplay2 = document.querySelector(".modal-display-2");
     modal = document.querySelector(e.target.getAttribute("href"));
     focusables = Array.from(modal.querySelectorAll(focusableSelector));
     previouslyFocusedElement = document.querySelector(":focus");
@@ -179,6 +182,9 @@ const openModal = function(e) {
     modal.addEventListener("click", closeModal);
     modal.querySelector(".modal-close-cross").addEventListener("click", closeModal);
     modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
+    modalBackArrow.style.visibility = "hidden";
+    modalDisplay1.style.display = "flex";
+    modalDisplay2.style.display = "none";
 };
 
 
@@ -281,12 +287,10 @@ function attachModalElements(modalFigureElement) {
 function deleteOneModalWork(work, figureElement, modalFigureElement) {
     const token = localStorage.getItem("token");
     const deleteButton = document.getElementById(work.id);
-    console.log(deleteButton);
     deleteButton.addEventListener("click", function(e) {
         e.preventDefault();
         modalFigureElement.remove();
         figureElement.remove();
-        console.log(deleteButton);
         fetch("http://localhost:5678/api/works/" + work.id, {
 
                 method: "DELETE",
@@ -296,7 +300,7 @@ function deleteOneModalWork(work, figureElement, modalFigureElement) {
                 }
         })
         .then(console.log("Oeuvre supprimée !"))
-        .catch(console.log("La suppression a échoué !"))
+        // .catch(console.log("La suppression a échoué !"))
     });
 };
 
@@ -322,4 +326,36 @@ function switchModalDisplay() {
 };
 
 
+// Fonction d'ajout d'une nouvelle oeuvre dans la bdd
+function addOneWork() {
+    const modalForm = document.querySelector(".modal-form");
+    modalForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const token = localStorage.getItem("token");
 
+        const formImgFile = document.getElementById("file").files[0];
+        const formTitle = document.getElementById("title").value;
+        const formCategoryId = document.getElementById("category-id").value;
+
+        const formData = new FormData();
+        formData.append("image", formImgFile);
+        formData.append("title", formTitle);
+        formData.append("category", formCategoryId);
+
+        fetch("http://localhost:5678/api/works", {
+
+            method: "POST",
+            headers: {
+                "accept": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error));
+    });
+   
+};
+
+addOneWork();

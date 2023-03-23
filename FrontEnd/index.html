@@ -83,20 +83,19 @@
 			</div>
 			<div class="modal-display-2">
 				<h1 id="modal-title">Ajout photo</h1>
-				<form class="modal-form">
+				<form class="modal-form" enctype="multipart/form-data">
 					<div class="modal-form-img-zone">
 						<label for="file">+ Ajouter photo</label>
-						<input type="file" id="file" name="file" accept=".png, .jpg, .jpeg">
+						<input type="file" id="file" name="file" accept=".png, .jpg, .jpeg" required="required">
 						<p>jpg, png : 4mo max</p>
 					</div>
 					<label class="modal-form-label" for="title">Titre</label>
-					<input class="modal-form-enter-data" type="text" id="title" name="title">
-					<label class="modal-form-label" for="category">Catégorie</label>
-					<select class="modal-form-enter-data" name="category" id="category">
-						<option value="objects">Objets</option>
-						<option value="apartments">Appartements</option>
-						<option value="hotels-and-restaurants">Hôtels & restaurants</option>
-						<option value="other">Autre</option>
+					<input class="modal-form-enter-data" type="text" id="title" name="title" required="required">
+					<label class="modal-form-label" for="category-id">Catégorie</label>
+					<select class="modal-form-enter-data" name="category-id" id="category-id" required="required">
+						<option value="1">Objets</option>
+						<option value="2">Appartements</option>
+						<option value="3">Hôtels & restaurants</option>
 					</select>
 					<div class="transversal-bar-2"></div>
 					<div class="modal-form-div-submit"><button type="submit">Valider</button></div>
