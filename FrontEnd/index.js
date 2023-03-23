@@ -31,7 +31,9 @@ function showWorks(works) {
         const modalFigureElement = createModalElements(work);
         attachModalElements(modalFigureElement);
         deleteOneModalWork(work, figureElement, modalFigureElement);
+        deleteAllWorks(works, figureElement, modalFigureElement);
     };
+    addOneWork();
 };
 
 
@@ -342,6 +344,9 @@ function addOneWork() {
         formData.append("title", formTitle);
         formData.append("category", formCategoryId);
 
+        // const submitButton = document.getElementById("form-submit-button");
+        // submitButton.style.backgroundColor = "#1D6154";
+
         fetch("http://localhost:5678/api/works", {
 
             method: "POST",
@@ -352,10 +357,38 @@ function addOneWork() {
             body: formData
         })
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(result => console.log(result))
         .catch(error => console.log(error));
     });
    
 };
 
-addOneWork();
+
+// Fonction de suppression de tous les travaux
+function deleteAllWorks(works, figureElement, modalFigureElement) {
+    const deleteAllWorksLink = document.querySelector(".modal-delete-gallery");
+    deleteAllWorksLink.addEventListener("click", function(e) {
+        e.preventDefault();
+        // Itérer sur les travaux
+        for (let i = 0; i < works.length; i++) {
+            const work = works[i];
+            deleteOneWork(work, figureElement, modalFigureElement);
+        };
+    });
+};
+
+
+function deleteOneWork(work, figureElement, modalFigureElement) {
+    const token = localStorage.getItem("token");
+    modalFigureElement.remove();
+    figureElement.remove();
+    fetch("http://localhost:5678/api/works/" + work.id, {
+
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+    })
+    .then(console.log("Oeuvre supprimée !"))
+};

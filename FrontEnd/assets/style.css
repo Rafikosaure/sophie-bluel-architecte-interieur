@@ -595,7 +595,7 @@ label[for="file"]:hover {
 	justify-content: center;
 }
 
-.modal-form button {
+#form-submit-button {
 	align-items: center;
 	background-color: #A7A7A7;
 	color: white;
