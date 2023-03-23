@@ -31,8 +31,8 @@ function showWorks(works) {
         const modalFigureElement = createModalElements(work);
         attachModalElements(modalFigureElement);
         deleteOneModalWork(work, figureElement, modalFigureElement);
-        deleteAllWorks(works, figureElement, modalFigureElement);
     };
+    deleteAllWorksLink(works);
     addOneWork();
 };
 
@@ -365,23 +365,25 @@ function addOneWork() {
 
 
 // Fonction de suppression de tous les travaux
-function deleteAllWorks(works, figureElement, modalFigureElement) {
+function deleteAllWorksLink(works) {
     const deleteAllWorksLink = document.querySelector(".modal-delete-gallery");
     deleteAllWorksLink.addEventListener("click", function(e) {
         e.preventDefault();
         // Itérer sur les travaux
         for (let i = 0; i < works.length; i++) {
             const work = works[i];
-            deleteOneWork(work, figureElement, modalFigureElement);
+            deleteOneWork(work);
         };
     });
 };
 
 
-function deleteOneWork(work, figureElement, modalFigureElement) {
+function deleteOneWork(work) {
     const token = localStorage.getItem("token");
-    modalFigureElement.remove();
-    figureElement.remove();
+    const figureRemoved = document.getElementById("figureElement");
+    const modalFigureRemoved = document.getElementById("modal-figure-element");
+    figureRemoved.remove();
+    modalFigureRemoved.remove();
     fetch("http://localhost:5678/api/works/" + work.id, {
 
             method: "DELETE",
