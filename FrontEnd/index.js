@@ -395,7 +395,8 @@ function addOneWork() {
             attachElements(figureElement);
             const modalFigureElement = createModalElements(data);
             attachModalElements(modalFigureElement);
-            console.log("La nouvelle oeuvre est bien affichée !");          
+            console.log("La nouvelle oeuvre est bien affichée !");
+            deleteOneModalWork(data, figureElement, modalFigureElement);          
         })
         .catch(error => console.log(error))
     })
