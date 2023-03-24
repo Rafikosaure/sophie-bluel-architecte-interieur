@@ -47,7 +47,7 @@ function deleteWorksMainGallery(works) {
 };
 
 
-// Fonction de suppression d'un seul élément (galerie principale)
+// Fonction de suppression d'un seul élément de la galerie principale
 function removeElements() {
     const figureRemoved = document.getElementById("figureElement");
     console.log("Contenu de figureElement avant sa suppression : " + figureRemoved);
@@ -55,7 +55,7 @@ function removeElements() {
 };
 
 
-// Création des éléments (galerie principale)
+// Création des éléments dans la galerie principale
 function createElements(work) {
     const imageElement = document.createElement("img");
     imageElement.src = work.imageUrl;
@@ -69,7 +69,7 @@ function createElements(work) {
 };
 
 
-// Rattachement au parent (galerie principale)
+// Rattachement au parent dans la galerie principale
 function attachElements(figureElement) {
     const gallery = document.querySelector(".gallery");
     gallery.appendChild(figureElement);
@@ -249,15 +249,14 @@ const focusInModal = function(e) {
 };
 
 
-// Boutons d'ouverture de la modale
+// Bouton d'ouverture de la modale
 function openModalButton() {
-    document.querySelectorAll(".js-modal").forEach(a => {
-    a.addEventListener("click", openModal);
-    });
+    const openModalButton = document.querySelector(".js-modal");
+    openModalButton.addEventListener("click", openModal);
 };
 
 
-// Fonction de création des éléments dans la modale
+// Fonction de création des éléments dans la galerie de la modale
 function createModalElements(work) {
     const modalImageElement = document.createElement("img");
     modalImageElement.src = work.imageUrl;
@@ -278,14 +277,14 @@ function createModalElements(work) {
 };
 
 
-// Fonction de rattachement au parent dans la modale
+// Fonction de rattachement au parent dans la galerie de la modale
 function attachModalElements(modalFigureElement) {
     const modalGallery = document.querySelector(".modal-gallery");
     modalGallery.appendChild(modalFigureElement);
 };
 
 
-// Modale: boutons "poubelle" pour supprimer l'un des travaux
+// Boutons "poubelle" pour supprimer l'un des travaux (-> modale1)
 function deleteOneModalWork(work, figureElement, modalFigureElement) {
     const token = localStorage.getItem("token");
     const deleteButton = document.getElementById(work.id);
@@ -307,19 +306,52 @@ function deleteOneModalWork(work, figureElement, modalFigureElement) {
 };
 
 
-// Mise à jour de l'affichage de la modale
+// Lien rouge de suppression de tous les travaux (-> modale1)
+function deleteAllWorksLink(works) {
+    const deleteAllWorksLink = document.querySelector(".modal-delete-gallery");
+    deleteAllWorksLink.addEventListener("click", function(e) {
+        e.preventDefault();
+        // Itérer sur les travaux
+        for (let i = 0; i < works.length; i++) {
+            const work = works[i];
+            deleteOneWorkOnly(work);
+        };
+    });
+};
+
+
+// Fonction de suppression d'une seule oeuvre avec mise à jour du DOM
+function deleteOneWorkOnly(work) {
+    const token = localStorage.getItem("token");
+    const figureRemoved = document.getElementById("figureElement");
+    const modalFigureRemoved = document.getElementById("modal-figure-element");
+    figureRemoved.remove();
+    modalFigureRemoved.remove();
+    fetch("http://localhost:5678/api/works/" + work.id, {
+
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+    })
+    .then(console.log("Oeuvre supprimée !"))
+};
+
+
+// Mise à jour de l'affichage de la modale (modale1 / modale2)
 const modalAddImageButton = document.querySelector(".modal-add-image-button");
 const modalBackArrow = document.querySelector(".modal-back-arrow");
 const modalDisplay1 = document.querySelector(".modal-display-1");
 const modalDisplay2 = document.querySelector(".modal-display-2");
 function switchModalDisplay() {
-    // Affichage "Galerie photo"
+    // Affichage "Galerie photo" (-> modale1)
     modalBackArrow.addEventListener("click", function() {
         modalDisplay1.style.display = "flex";
         modalDisplay2.style.display = "none";
         modalBackArrow.style.visibility = "hidden";
     });
-    // Affichage "Ajout photo"
+    // Affichage "Ajout photo" (-> modale2)
     modalAddImageButton.addEventListener("click", function() {
         modalBackArrow.style.visibility = "visible";
         modalDisplay1.style.display = "none";
@@ -328,7 +360,7 @@ function switchModalDisplay() {
 };
 
 
-// Fonction d'ajout d'une nouvelle oeuvre dans la bdd
+// Fonction d'ajout d'une nouvelle oeuvre dans la bdd (-> modale2)
 function addOneWork() {
     const modalForm = document.querySelector(".modal-form");
     modalForm.addEventListener("submit", (e) => {
@@ -369,35 +401,3 @@ function addOneWork() {
     })
 };
 
-
-// Fonction de suppression de tous les travaux sur le lien rouge (-> modale1)
-function deleteAllWorksLink(works) {
-    const deleteAllWorksLink = document.querySelector(".modal-delete-gallery");
-    deleteAllWorksLink.addEventListener("click", function(e) {
-        e.preventDefault();
-        // Itérer sur les travaux
-        for (let i = 0; i < works.length; i++) {
-            const work = works[i];
-            deleteOneWorkOnly(work);
-        };
-    });
-};
-
-
-// Fonction de suppression d'une seule oeuvre de la bdd & du DOM
-function deleteOneWorkOnly(work) {
-    const token = localStorage.getItem("token");
-    const figureRemoved = document.getElementById("figureElement");
-    const modalFigureRemoved = document.getElementById("modal-figure-element");
-    figureRemoved.remove();
-    modalFigureRemoved.remove();
-    fetch("http://localhost:5678/api/works/" + work.id, {
-
-            method: "DELETE",
-            headers: {
-                "Accept": "application/json",
-                "Authorization": `Bearer ${token}`
-            }
-    })
-    .then(console.log("Oeuvre supprimée !"))
-};
