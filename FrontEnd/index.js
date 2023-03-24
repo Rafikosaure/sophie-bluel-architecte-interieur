@@ -18,10 +18,12 @@ function pageManager(data) {
     openModalButton();
     escapeAndTabKeys();
     switchModalDisplay();
+    deleteAllWorksLink(data);
+    addOneWork();
 };
 
 
-// Fonction d'affichage des travaux dans les galeries
+// Gestion de l'affichage des travaux dans les galeries
 function showWorks(works) {
     // Itérer sur les travaux
     for (let i = 0; i < works.length; i++) {
@@ -32,18 +34,24 @@ function showWorks(works) {
         attachModalElements(modalFigureElement);
         deleteOneModalWork(work, figureElement, modalFigureElement);
     };
-    deleteAllWorksLink(works);
-    addOneWork();
 };
 
 
-// Fonction de rafraichissement de la galerie principale
-function refreshGallery(works) {
+// Fonction de suppression de tous les travaux de la galerie principale
+function deleteWorksMainGallery(works) {
     // Itérer sur les travaux
     for (let i = 0; i < works.length; i++) {
         const work = works[i];
         removeElements();
     };
+};
+
+
+// Fonction de suppression d'un seul élément (galerie principale)
+function removeElements() {
+    const figureRemoved = document.getElementById("figureElement");
+    console.log("Contenu de figureElement avant sa suppression : " + figureRemoved);
+    figureRemoved.remove();
 };
 
 
@@ -68,14 +76,6 @@ function attachElements(figureElement) {
 };
 
 
-// Fonction de suppression des éléments (galerie principale)
-function removeElements() {
-    const figureRemoved = document.getElementById("figureElement");
-    console.log("Contenu de figureElement avant sa suppression : " + figureRemoved);
-    figureRemoved.remove();
-};
-
-
 // Boutons de filtres
 function filterButtons(data) {
     const works = data;
@@ -96,9 +96,9 @@ function filterButtons(data) {
         } else if (buttonTag === "all") {
             const filteredWorks = works;
             if (currentWorks != undefined) {
-                refreshGallery(currentWorks);
+                deleteWorksMainGallery(currentWorks);
             } else if (currentWorks === undefined) {
-                refreshGallery(works);
+                deleteWorksMainGallery(works);
             };
             showWorks(filteredWorks);
             currentWorks = filteredWorks;
@@ -112,10 +112,10 @@ function filterButtons(data) {
 function filters(works, currentWorks, categoryId) {
     if (currentWorks !== undefined) {
         console.log("Si currentWorks a une valeur : " + currentWorks);
-        refreshGallery(currentWorks);
+        deleteWorksMainGallery(currentWorks);
     } else if (currentWorks === undefined) {
         console.log("Si currentWorks ne contient rien : " + currentWorks);
-        refreshGallery(works);
+        deleteWorksMainGallery(works);
     };
     const filteredWorks = works.filter(work => work.category.id === categoryId);
     showWorks(filteredWorks);
@@ -285,7 +285,7 @@ function attachModalElements(modalFigureElement) {
 };
 
 
-// Modale: boutons "poubelle" pour supprimer des travaux
+// Modale: boutons "poubelle" pour supprimer l'un des travaux
 function deleteOneModalWork(work, figureElement, modalFigureElement) {
     const token = localStorage.getItem("token");
     const deleteButton = document.getElementById(work.id);
@@ -357,14 +357,20 @@ function addOneWork() {
             body: formData
         })
         .then(response => response.json())
-        .then(result => console.log(result))
-        .catch(error => console.log(error));
-    });
-   
+        .then(function(data) {
+            console.log(data);
+            const figureElement = createElements(data);
+            attachElements(figureElement);
+            const modalFigureElement = createModalElements(data);
+            attachModalElements(modalFigureElement);
+            console.log("La nouvelle oeuvre est bien affichée !");          
+        })
+        .catch(error => console.log(error))
+    })
 };
 
 
-// Fonction de suppression de tous les travaux
+// Fonction de suppression de tous les travaux sur le lien rouge (-> modale1)
 function deleteAllWorksLink(works) {
     const deleteAllWorksLink = document.querySelector(".modal-delete-gallery");
     deleteAllWorksLink.addEventListener("click", function(e) {
@@ -372,13 +378,14 @@ function deleteAllWorksLink(works) {
         // Itérer sur les travaux
         for (let i = 0; i < works.length; i++) {
             const work = works[i];
-            deleteOneWork(work);
+            deleteOneWorkOnly(work);
         };
     });
 };
 
 
-function deleteOneWork(work) {
+// Fonction de suppression d'une seule oeuvre de la bdd & du DOM
+function deleteOneWorkOnly(work) {
     const token = localStorage.getItem("token");
     const figureRemoved = document.getElementById("figureElement");
     const modalFigureRemoved = document.getElementById("modal-figure-element");
