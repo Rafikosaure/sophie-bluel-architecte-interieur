@@ -442,6 +442,7 @@ function addOneWork(works) {
 const previewPicture = function(e) {
     const [picture] = e.files;
     const imageFormUploaded = document.getElementById("image-form-uploaded");
+    const modalFormLandscapeIcon = document.querySelector(".modal-form-landscape-icon");
     const addImageFormLabel = document.getElementById("add-image-form-label");
     const fileInput = document.getElementById("file");
     const formFileInputParagraph = document.getElementById("form-file-input-paragraph");
@@ -451,6 +452,7 @@ const previewPicture = function(e) {
     if (picture && types.includes(picture.type)) {
 
         imageFormUploaded.style.display = "block";
+        modalFormLandscapeIcon.style.display = "none";
         addImageFormLabel.style.display = "none";
         fileInput.style.display = "none";
         formFileInputParagraph.style.display = "none";

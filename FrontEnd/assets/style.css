@@ -556,7 +556,7 @@ label[for="file"] {
 	border-radius: 25px;
 	color: #306685;
 	position: relative;
-	top: 40px;
+	top: 10px;
 }
   
 label[for="file"]:hover {
@@ -567,14 +567,22 @@ label[for="file"]:hover {
 	margin-top: 8px;
 	font-size: 11px;
 	position: relative;
-	top: 40px;
+	top: 10px;
 }
 
 #image-form-uploaded {
 	display: none;
 	width: auto;
 	height: 100%;
+	border: none;
 	cursor: pointer;
+}
+
+.modal-form-landscape-icon {
+	font-size: 68px;
+	color: #CBD6DC;
+	position: relative;
+	bottom: 6px;
 }
 
 .modal-form-label {
