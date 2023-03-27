@@ -14,12 +14,12 @@ function pageManager(data) {
     logoutMainPage();
     // Galerie principale & modale
     showWorks(data);
-    filterButtons(data);
+    filterButtons(data)
     openModalButton();
     escapeAndTabKeys();
     switchModalDisplay();
     deleteAllWorksLink(data);
-    addOneWork();
+    addOneWork(data);
 };
 
 
@@ -77,10 +77,10 @@ function attachElements(figureElement) {
 
 
 // Boutons de filtres
-function filterButtons(data) {
-    const works = data;
+function filterButtons(works) {
+    // console.log("Nombre de travaux à l'ouverture des filtres: " + works.length);
     const filterButtons = document.querySelectorAll("#filters button");
-    let currentWorks;
+    let currentWorks;    
     for (let filter of filterButtons) {
         filter.addEventListener("click", function () {
         let buttonTag = this.id;
@@ -91,6 +91,7 @@ function filterButtons(data) {
             currentWorks = filters(works, currentWorks, apartmentsCategoryId);
 
         } else if (buttonTag === "hotels-and-restaurants") {
+            console.log('Longueur de "works" dans "filteredWorks": ' + works.length + ' travaux.');
             currentWorks = filters(works, currentWorks, hotelsAndRestaurantsCategoryId);
 
         } else if (buttonTag === "all") {
@@ -110,16 +111,22 @@ function filterButtons(data) {
 
 // Fonction de filtrage
 function filters(works, currentWorks, categoryId) {
+    console.log('"Works" contient initialement: ' + works.length + ' travaux !');
     if (currentWorks !== undefined) {
-        console.log("Si currentWorks a une valeur : " + currentWorks);
+        // console.log('"CurrentWorks" a une valeur, la voici : ' + currentWorks);
+        // console.log("Longueur de currentWorks avant suppression: " + currentWorks.length)
         deleteWorksMainGallery(currentWorks);
+        // console.log('Les travaux courants ont été supprimés.')
     } else if (currentWorks === undefined) {
-        console.log("Si currentWorks ne contient rien : " + currentWorks);
+        // console.log("CurrentWorks ne contient rien.");
+        // console.log('(fonction filters) Longueur de "works" avant suppression: ' + works.length);
         deleteWorksMainGallery(works);
+        // console.log("Les travaux ont été supprimés de la galerie.");
     };
     const filteredWorks = works.filter(work => work.category.id === categoryId);
     showWorks(filteredWorks);
     currentWorks = filteredWorks;
+    // console.log('Valeur finale de "currentWorks": ' + currentWorks);
     return currentWorks;
 };
 
@@ -311,16 +318,22 @@ function deleteAllWorksLink(works) {
     const deleteAllWorksLink = document.querySelector(".modal-delete-gallery");
     deleteAllWorksLink.addEventListener("click", function(e) {
         e.preventDefault();
-        // Itérer sur les travaux
-        for (let i = 0; i < works.length; i++) {
-            const work = works[i];
-            deleteOneWorkOnly(work);
-        };
+        deleteAllModalWorks(works);
     });
 };
 
 
-// Fonction de suppression d'une seule oeuvre avec mise à jour du DOM
+// Fonction de suppression de tous les travaux dans la bdd (et dans le DOM)
+function deleteAllModalWorks(works) {
+    // Itérer sur les travaux
+    for (let i = 0; i < works.length; i++) {
+        const work = works[i];
+        deleteOneWorkOnly(work);
+    };
+};
+
+
+// Fonction de suppression d'une seule oeuvre dans la bdd (et dans le DOM)
 function deleteOneWorkOnly(work) {
     const token = localStorage.getItem("token");
     const figureRemoved = document.getElementById("figureElement");
@@ -336,6 +349,17 @@ function deleteOneWorkOnly(work) {
             }
     })
     .then(console.log("Oeuvre supprimée !"))
+};
+
+
+// Fonction de rafraichissement de la galerie de la modale
+function refreshModalGallery(works) {
+    // Itérer sur les travaux
+    for (let i = 0; i < works.length; i++) {
+        const work = works[i];
+        const modalFigureRemoved = document.getElementById("modal-figure-element");
+        modalFigureRemoved.remove();
+    };
 };
 
 
@@ -361,7 +385,8 @@ function switchModalDisplay() {
 
 
 // Fonction d'ajout d'une nouvelle oeuvre dans la bdd (-> modale2)
-function addOneWork() {
+function addOneWork(works) {
+    const currentWorks = works;
     const modalForm = document.querySelector(".modal-form");
     modalForm.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -379,6 +404,10 @@ function addOneWork() {
         // const submitButton = document.getElementById("form-submit-button");
         // submitButton.style.backgroundColor = "#1D6154";
 
+        
+        // deleteWorksMainGallery(currentWorks);
+        // refreshModalGallery(currentWorks);
+
         fetch("http://localhost:5678/api/works", {
 
             method: "POST",
@@ -389,14 +418,20 @@ function addOneWork() {
             body: formData
         })
         .then(response => response.json())
-        .then(function(data) {
-            console.log(data);
-            const figureElement = createElements(data);
+        .then(function(newWork) {
+            console.log(newWork);
+            
+            // fetch("http://localhost:5678/api/works")
+            //     .then(response => response.json())
+                // .then(works => pageManager(works))
+                // .then(works => filterButtons(works))
+            console.log("DOM mis à jour !")
+            const figureElement = createElements(newWork);
             attachElements(figureElement);
-            const modalFigureElement = createModalElements(data);
+            const modalFigureElement = createModalElements(newWork);
             attachModalElements(modalFigureElement);
             console.log("La nouvelle oeuvre est bien affichée !");
-            deleteOneModalWork(data, figureElement, modalFigureElement);          
+            deleteOneModalWork(newWork, figureElement, modalFigureElement);
         })
         .catch(error => console.log(error))
     })
