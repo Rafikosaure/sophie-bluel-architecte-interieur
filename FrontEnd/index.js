@@ -384,26 +384,23 @@ function switchModalDisplay() {
 };
 
 
-// Fonction d'ajout d'une nouvelle oeuvre dans la bdd (-> modale2)
-function addOneWork(works) {
-    const currentWorks = works;
+// Fonction d'ajout d'une nouvelle oeuvre dans la bdd (-> modale2) 
+// avec actualisation du DOM dans les deux galeries
+function addOneWork() {
+    const formImgFile = document.getElementById("file").files[0];
+    const formTitle = document.getElementById("title").value;
+    const formCategoryId = document.getElementById("category-id").value;
+    // const submitButton = document.getElementById("form-submit-button");
+    
     const modalForm = document.querySelector(".modal-form");
     modalForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const token = localStorage.getItem("token");
 
-        const formImgFile = document.getElementById("file").files[0];
-        const formTitle = document.getElementById("title").value;
-        const formCategoryId = document.getElementById("category-id").value;
-
         const formData = new FormData();
         formData.append("image", formImgFile);
         formData.append("title", formTitle);
         formData.append("category", formCategoryId);
-
-        // const submitButton = document.getElementById("form-submit-button");
-        // submitButton.style.backgroundColor = "#1D6154";
-
         
         // deleteWorksMainGallery(currentWorks);
         // refreshModalGallery(currentWorks);
@@ -425,7 +422,8 @@ function addOneWork(works) {
             //     .then(response => response.json())
                 // .then(works => pageManager(works))
                 // .then(works => filterButtons(works))
-            console.log("DOM mis à jour !")
+            
+            // console.log("DOM mis à jour !")
             const figureElement = createElements(newWork);
             attachElements(figureElement);
             const modalFigureElement = createModalElements(newWork);
@@ -464,9 +462,12 @@ const previewPicture = function(e) {
         reader.readAsDataURL(picture);
     };
     imageFormUploaded.addEventListener("click", function() {
-        // ICI: détection d'un bug si on charge une autre image trop de fois.
-        // Bug en question: le input type=file rouvre le navigateur au lieu 
-        // d'afficher tout de suite l'image sélectionnée.
+        // ICI détection d'un bug si on charge une autre image trop 
+        // de fois: le input type=file rouvre l'explorateur de fichiers 
+        // au lieu d'afficher tout de suite l'image sélectionnée.
         document.getElementById("file").click();
     });
+    console.log(picture);
 };
+
+

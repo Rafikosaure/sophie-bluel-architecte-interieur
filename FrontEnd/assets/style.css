@@ -612,7 +612,6 @@ label[for="file"]:hover {
 
 #form-submit-button {
 	align-items: center;
-	background-color: #A7A7A7;
 	color: white;
 	font-weight: bold;
 	border-style: none;
@@ -624,5 +623,13 @@ label[for="file"]:hover {
 	margin-bottom: 15px;
 	border-radius: 20px;
 	cursor: pointer;
+}
+
+#form-submit-button:invalid {
+	background-color: #A7A7A7;
+}
+
+#form-submit-button:valid {
+	background-color: #1D6154;
 }
 
