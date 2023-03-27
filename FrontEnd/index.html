@@ -85,9 +85,10 @@
 				<h1 id="modal-title">Ajout photo</h1>
 				<form class="modal-form" enctype="multipart/form-data">
 					<div class="modal-form-img-zone">
-						<label for="file">+ Ajouter photo</label>
-						<input type="file" id="file" name="file" accept=".png, .jpg, .jpeg" required="required">
-						<p>jpg, png : 4mo max</p>
+						<label id="add-image-form-label" for="file">+ Ajouter photo</label>
+						<input type="file" id="file" name="file" onchange="previewPicture(this)" accept=".png, .jpg, .jpeg" required="required">
+						<p id="form-file-input-paragraph">jpg, png : 4mo max</p>
+						<img src="#" alt="new-work" id="image-form-uploaded">
 					</div>
 					<label class="modal-form-label" for="title">Titre</label>
 					<input class="modal-form-enter-data" type="text" id="title" name="title" required="required">

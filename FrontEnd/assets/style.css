@@ -570,6 +570,13 @@ label[for="file"]:hover {
 	top: 40px;
 }
 
+#image-form-uploaded {
+	display: none;
+	width: auto;
+	height: 100%;
+	cursor: pointer;
+}
+
 .modal-form-label {
 	margin-top: 30px;
 	margin-bottom: 10px;
