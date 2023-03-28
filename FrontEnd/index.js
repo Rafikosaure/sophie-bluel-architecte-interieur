@@ -19,7 +19,8 @@ function pageManager(data) {
     escapeAndTabKeys();
     switchModalDisplay();
     deleteAllWorksLink(data);
-    addOneWork(data);
+    addOneWork();
+    clickOnThePicture();
 };
 
 
@@ -436,7 +437,7 @@ function addOneWork() {
 };
 
 
-// Fonction d'affichage de l'image chargée depuis le formulaire d'ajout
+// Fonction d'affichage de la miniature chargée depuis le formulaire d'ajout
 const previewPicture = function(e) {
     const [picture] = e.files;
     const imageFormUploaded = document.getElementById("image-form-uploaded");
@@ -461,13 +462,15 @@ const previewPicture = function(e) {
         };
         reader.readAsDataURL(picture);
     };
-    imageFormUploaded.addEventListener("click", function() {
-        // ICI détection d'un bug si on charge une autre image trop 
-        // de fois: le input type=file rouvre l'explorateur de fichiers 
-        // au lieu d'afficher tout de suite l'image sélectionnée.
-        document.getElementById("file").click();
-    });
     console.log(picture);
 };
 
+
+// Fonction de clic sur la miniature
+function clickOnThePicture() {
+    const imageFormUploaded = document.getElementById("image-form-uploaded");
+    imageFormUploaded.addEventListener("click", function() {
+        document.getElementById("file").click();
+    });
+};
 
