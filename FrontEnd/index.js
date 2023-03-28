@@ -19,7 +19,7 @@ function pageManager(data) {
     escapeAndTabKeys();
     switchModalDisplay();
     deleteAllWorksLink(data);
-    addOneWork();
+    addOneWork(data);
     clickOnThePicture();
 };
 
@@ -387,7 +387,7 @@ function switchModalDisplay() {
 
 // Fonction d'ajout d'une nouvelle oeuvre dans la bdd (-> modale2) 
 // avec actualisation du DOM dans les deux galeries
-function addOneWork() {
+function addOneWork(works) {
     const formImgFile = document.getElementById("file").files[0];
     const formTitle = document.getElementById("title").value;
     const formCategoryId = document.getElementById("category-id").value;
@@ -437,7 +437,7 @@ function addOneWork() {
 };
 
 
-// Fonction d'affichage de la miniature chargée depuis le formulaire d'ajout
+// Fonction d'affichage de la miniature dans le formulaire d'ajout (-> modale2)
 const previewPicture = function(e) {
     const [picture] = e.files;
     const imageFormUploaded = document.getElementById("image-form-uploaded");
@@ -466,7 +466,7 @@ const previewPicture = function(e) {
 };
 
 
-// Fonction de clic sur la miniature
+// Fonction de clic sur la miniature (-> modale2)
 function clickOnThePicture() {
     const imageFormUploaded = document.getElementById("image-form-uploaded");
     imageFormUploaded.addEventListener("click", function() {
