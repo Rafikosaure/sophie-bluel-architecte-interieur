@@ -378,6 +378,7 @@ function switchModalDisplay() {
     });
     // Affichage "Ajout photo" (-> modale2)
     modalAddImageButton.addEventListener("click", function() {
+        const imageFormUploaded = document.getElementById("image-form-uploaded");
         modalBackArrow.style.visibility = "visible";
         modalDisplay1.style.display = "none";
         modalDisplay2.style.display = "flex";
@@ -391,9 +392,10 @@ function addOneWork(works) {
     const formImgFile = document.getElementById("file").files[0];
     const formTitle = document.getElementById("title").value;
     const formCategoryId = document.getElementById("category-id").value;
-    // const submitButton = document.getElementById("form-submit-button");
-    
     const modalForm = document.querySelector(".modal-form");
+
+    submitButtonColor();
+
     modalForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const token = localStorage.getItem("token");
@@ -466,7 +468,7 @@ const previewPicture = function(e) {
 };
 
 
-// Fonction de clic sur la miniature (-> modale2)
+// Fonction de clic sur la miniature pour changer d'image (-> modale2)
 function clickOnThePicture() {
     const imageFormUploaded = document.getElementById("image-form-uploaded");
     imageFormUploaded.addEventListener("click", function() {
@@ -474,3 +476,20 @@ function clickOnThePicture() {
     });
 };
 
+
+// Bouton "submit" du formulaire d'ajout: changement de couleur (-> modale2)
+function submitButtonColor() {
+    const modalForm = document.querySelector(".modal-form");
+    const submitButton = document.querySelector("#form-submit-button");
+    const fileInput = document.querySelector("#file");
+    const titleInput = document.querySelector("#title");
+    const selectCategory = document.querySelector("#category-id");
+
+    modalForm.addEventListener("change", (event) => {
+        if (fileInput.value != undefined && titleInput.value != "" && selectCategory != undefined) {
+            submitButton.style.backgroundColor = "#1D6154";
+        } else {
+            submitButton.style.backgroundColor = "#A7A7A7";
+        };
+    });
+};
