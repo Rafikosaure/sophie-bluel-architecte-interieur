@@ -398,6 +398,7 @@ function addOneWork(works) {
 
     modalForm.addEventListener("submit", (e) => {
         e.preventDefault();
+
         const token = localStorage.getItem("token");
 
         const formData = new FormData();
@@ -486,10 +487,28 @@ function submitButtonColor() {
     const selectCategory = document.querySelector("#category-id");
 
     modalForm.addEventListener("change", (event) => {
-        if (fileInput.value != undefined && titleInput.value != "" && selectCategory != undefined) {
+        console.log(fileInput.value);
+        if (fileInput.value !== "" && titleInput.value !== "" && selectCategory !== undefined) {
             submitButton.style.backgroundColor = "#1D6154";
         } else {
             submitButton.style.backgroundColor = "#A7A7A7";
         };
     });
+};
+
+
+// Infobulle de renseignement obligatoire du champ "input type=file"
+function emptyFieldToolTip() {
+    const emptyFieldMessage = document.getElementById('empty-field-message');
+    const fileInput = document.querySelector("#file");
+    emptyFieldMessage.style.display = "block";
+    // Revoir le display de emptyFieldMessage ici !!!
+    if (fileInput.value === "") {
+        
+        setTimeout(() => {
+        emptyFieldMessage.style.display = "none";
+        }, 2500);
+    } else {
+        emptyFieldMessage.style.display = "none";
+    };
 };

@@ -86,6 +86,7 @@
 				<form class="modal-form" enctype="multipart/form-data">
 					<div class="modal-form-img-zone">
 						<i class="fa-sharp fa-regular fa-image modal-form-landscape-icon"></i>
+						<div id="empty-field-message">Veuillez sélectionner une image.</div>
 						<label id="add-image-form-label" for="file">+ Ajouter photo</label>
 						<input type="file" id="file" name="file" onchange="previewPicture(this)" accept=".png, .jpg, .jpeg" required="required">
 						<p id="form-file-input-paragraph">jpg, png : 4mo max</p>
@@ -100,7 +101,7 @@
 						<option value="3">Hôtels & restaurants</option>
 					</select>
 					<div class="transversal-bar-2"></div>
-					<div class="modal-form-div-submit"><input id="form-submit-button" type="submit" value="Valider"></button></div>
+					<div class="modal-form-div-submit"><input id="form-submit-button" type="submit" value="Valider" onclick="emptyFieldToolTip()"></button></div>
 					
 				</form>
 			</div>
