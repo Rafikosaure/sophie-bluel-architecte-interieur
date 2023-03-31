@@ -14,13 +14,14 @@ function pageManager(data) {
     logoutMainPage();
     // Galerie principale & modale
     showWorks(data);
-    filterButtons(data)
+    // filtersDesactivator(data);
     openModalButton();
     escapeAndTabKeys();
     switchModalDisplay();
     deleteAllWorksLink(data);
     addOneWork(data);
     clickOnThePicture();
+    filterButtons(data);
 };
 
 
@@ -33,7 +34,7 @@ function showWorks(works) {
         attachElements(figureElement);
         const modalFigureElement = createModalElements(work);
         attachModalElements(modalFigureElement);
-        deleteOneModalWork(works, work, figureElement, modalFigureElement);
+        deleteOneModalWorkBin(works, work, figureElement, modalFigureElement);
     };
 };
 
@@ -78,9 +79,32 @@ function attachElements(figureElement) {
 };
 
 
+// Fonction de désactivation des filtres
+function filtersDesactivator(works) {
+    const allFilterButton = document.querySelector("#all");
+    const objectsFilterButton = document.querySelector("#objects");
+    const apartmentsFilterButton = document.querySelector("#apartments");
+    const hotelsAndRestaurantsFilterButton = document.querySelector("#hotels-and-restaurants");
+    if (works === {}) {
+        allFilterButton.disabled = "true";
+        objectsFilterButton.disabled = "true";
+        apartmentsFilterButton.disabled = "true";
+        hotelsAndRestaurantsFilterButton.disabled = "true";
+    } else {
+        allFilterButton.disabled = "false";
+        objectsFilterButton.disabled = "false";
+        apartmentsFilterButton.disabled = "false";
+        hotelsAndRestaurantsFilterButton.disabled = "false";
+    };
+};
+
+
 // Boutons de filtres
 function filterButtons(works) {
+    console.log(works.length);
+    console.log(typeof works);
     // console.log("Nombre de travaux à l'ouverture des filtres: " + works.length);
+    // console.log("Contenu de works: " + works);
     const filterButtons = document.querySelectorAll("#filters button");
     let currentWorks;    
     for (let filter of filterButtons) {
@@ -118,15 +142,11 @@ function filters(works, currentWorks, categoryId) {
     if (currentWorks !== undefined) {
         // console.log('"CurrentWorks" a une valeur, la voici : ' + currentWorks);
         // console.log("Longueur de currentWorks avant suppression: " + currentWorks.length)
-        console.log('currentWorks is not "undefined".')
+        // console.log('currentWorks is not "undefined".')
         deleteWorksMainGallery(currentWorks);
         // console.log('Les travaux courants ont été supprimés.')
     } else if (currentWorks === undefined) {
-        // console.log("CurrentWorks ne contient rien.");
-        // console.log('(fonction filters) Longueur de "works" avant suppression: ' + works.length);
-        console.log('currentWorks is "undefined".')
         deleteWorksMainGallery(works);
-        // console.log("Les travaux ont été supprimés de la galerie.");
     };
     // const filteredWorks = works.filter(work => console.log(typeof(work.category.id)));
     const filteredWorks = works.filter(work => parseInt(work.categoryId, 10) === categoryId);
@@ -311,7 +331,7 @@ function attachModalElements(modalFigureElement) {
 
 
 // Boutons "poubelle" pour supprimer l'un des travaux (-> modale1)
-function deleteOneModalWork(works, work, figureElement, modalFigureElement) {
+function deleteOneModalWorkBin(works, work, figureElement, modalFigureElement) {
     const token = localStorage.getItem("token");
     const deleteButton = document.getElementById(work.id);
     deleteButton.addEventListener("click", function(e) {
@@ -332,6 +352,8 @@ function deleteOneModalWork(works, work, figureElement, modalFigureElement) {
         // .catch(console.log("La suppression a échoué !"))
         // console.log(works);
         works.splice(works.indexOf(work), 1);
+        // filterButtons(works);
+        // filtersDesactivator(works);
         // console.log(works);
     });
 };
@@ -342,28 +364,26 @@ function deleteAllWorksLink(works) {
     const deleteAllWorksLink = document.querySelector(".modal-delete-gallery");
     deleteAllWorksLink.addEventListener("click", function(e) {
         e.preventDefault();
-        deleteAllModalWorks(works);
+        // Itérer sur les travaux
+        for (let i = 0; i < works.length; i++) {
+            const work = works[i];
+            console.log("Contenu de works avant l'appel: " + works.length);
+            deleteOneWorkOnly(works, work);
+            console.log("Contenu de works après l'appel: " + works.length);
+            // works.splice(works.indexOf(work), 1);
+        };
     });
 };
 
 
-// Fonction de suppression de tous les travaux dans la bdd (et dans le DOM)
-function deleteAllModalWorks(works) {
-    // Itérer sur les travaux
-    for (let i = 0; i < works.length; i++) {
-        const work = works[i];
-        deleteOneWorkOnly(work);
-    };
-};
-
-
 // Fonction de suppression d'une seule oeuvre dans la bdd (et dans le DOM)
-function deleteOneWorkOnly(work) {
+function deleteOneWorkOnly(works, work) {
     const token = localStorage.getItem("token");
     const figureRemoved = document.getElementById("figureElement");
     const modalFigureRemoved = document.getElementById("modal-figure-element");
     figureRemoved.remove();
     modalFigureRemoved.remove();
+    console.log("Contenu de works avant le fetch: " + works.length);
     fetch("http://localhost:5678/api/works/" + work.id, {
 
             method: "DELETE",
@@ -373,6 +393,10 @@ function deleteOneWorkOnly(work) {
             }
     })
     .then(console.log("Oeuvre supprimée !"))
+    works.splice(works.indexOf(work), 1);
+    console.log("Contenu de works après le fetch: " + works.length);
+    // filterButtons(works);
+    // filtersDesactivator(works);
 };
 
 
@@ -478,7 +502,11 @@ function addOneWork(works) {
             console.log("La nouvelle oeuvre est bien affichée !");
             // console.log("ID de la nouvelle oeuvre: " + newWork.categoryId);
             // console.log("Type de cet ID: " + typeof(newWork.categoryId));
-            deleteOneModalWork(works, newWork, figureElement, modalFigureElement);
+            deleteOneModalWorkBin(works, newWork, figureElement, modalFigureElement);
+            // filtersDesactivator(works);
+            // filterButtons(works);
+            document.querySelector("#form-submit-button").style.backgroundColor = "#A7A7A7";
+            document.querySelector(".modal-form").reset();
         })
         .catch(error => console.log(error))
     })
