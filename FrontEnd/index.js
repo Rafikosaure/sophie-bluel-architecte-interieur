@@ -411,7 +411,7 @@ function refreshModalGallery(works) {
 };
 
 
-// Mise à jour de l'affichage de la modale (modale1 / modale2)
+// Passage d'un affichage de la modale à un autre (modale1 / modale2)
 const modalAddImageButton = document.querySelector(".modal-add-image-button");
 const modalBackArrow = document.querySelector(".modal-back-arrow");
 const modalDisplay1 = document.querySelector(".modal-display-1");
@@ -505,8 +505,18 @@ function addOneWork(works) {
             deleteOneModalWorkBin(works, newWork, figureElement, modalFigureElement);
             // filtersDesactivator(works);
             // filterButtons(works);
+
+            // On informe l'utilisateur qu'une image a été ajoutée
+            imgAdded();
+
+            // On réinitialise le formulaire d'ajout ainsi que son affichage
+            resetForm();
+            document.querySelector("#image-form-uploaded").style.display = "none";
+            document.querySelector(".modal-form-landscape-icon").style.display = "flex";
+            document.querySelector("#add-image-form-label").style.display = "flex";
+            document.querySelector("#file").style.display = "flex";
+            document.querySelector("#form-file-input-paragraph").style.display = "flex";
             document.querySelector("#form-submit-button").style.backgroundColor = "#A7A7A7";
-            document.querySelector(".modal-form").reset();
         })
         .catch(error => console.log(error))
     })
@@ -578,13 +588,22 @@ function emptyFieldToolTip() {
     const emptyFieldMessage = document.getElementById('empty-field-message');
     const fileInput = document.querySelector("#file");
     emptyFieldMessage.style.display = "block";
-    // Revoir le display de emptyFieldMessage ici !!!
     if (fileInput.value === "") {
         
         setTimeout(() => {
         emptyFieldMessage.style.display = "none";
-        }, 2500);
+        }, 2000);
     } else {
         emptyFieldMessage.style.display = "none";
     };
 };
+
+
+// Message: une image vient d'être ajoutée
+function imgAdded() {
+    const imgAddedMessage = document.getElementById("img-added");
+    imgAddedMessage.style.display = "flex";
+    setTimeout(() => {
+        imgAddedMessage.style.display = "none";
+        }, 2000);
+}

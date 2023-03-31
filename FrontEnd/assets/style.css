@@ -638,3 +638,14 @@ label[for="file"]:hover {
 	box-shadow: 10px 5px 5px #A7A7A7;
 }
 
+#img-added {
+	display: none;
+	position: absolute;
+	z-index: 1;
+	background-color: white;
+	padding: 30px;
+	font-size: 14px;
+	border: solid 1px black;
+	border-radius: 10px;
+	box-shadow: 10px 5px 5px #A7A7A7;
+}
