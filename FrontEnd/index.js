@@ -18,10 +18,13 @@ function pageManager(data) {
     openModalButton();
     escapeAndTabKeys();
     switchModalDisplay();
-    deleteAllWorksLink(data);
     addOneWork(data);
     clickOnThePicture();
+    deleteAllWorksLink(data);
+    console.log("Valeur de data: " + data);
     filterButtons(data);
+    // deleteWorksMainGallery(data);
+    // filterButtons(data);
 };
 
 
@@ -41,6 +44,7 @@ function showWorks(works) {
 
 // Fonction de suppression de tous les travaux de la galerie principale
 function deleteWorksMainGallery(works) {
+    console.log("DeleteWorksMainGallery: " + works.length);
     // Itérer sur les travaux
     for (let i = 0; i < works.length; i++) {
         const work = works[i];
@@ -53,7 +57,7 @@ function deleteWorksMainGallery(works) {
 // Fonction de suppression d'un seul élément de la galerie principale
 function removeElements() {
     const figureRemoved = document.getElementById("figureElement");
-    console.log("Contenu de figureElement avant sa suppression : " + figureRemoved);
+    console.log("Contenu de figureRemoved avant sa suppression : " + figureRemoved);
     figureRemoved.remove();
 };
 
@@ -79,6 +83,7 @@ function attachElements(figureElement) {
 };
 
 
+/*
 // Fonction de désactivation des filtres
 function filtersDesactivator(works) {
     const allFilterButton = document.querySelector("#all");
@@ -97,12 +102,18 @@ function filtersDesactivator(works) {
         hotelsAndRestaurantsFilterButton.disabled = "false";
     };
 };
+*/
 
 
 // Boutons de filtres
-function filterButtons(works) {
-    console.log(works.length);
-    console.log(typeof works);
+function filterButtons(data) {
+    if (data === []) {
+        works = data;
+    } else {
+        works = data;
+    };
+    console.log("FilterButtons: " + works.length);
+    // console.log(typeof works);
     // console.log("Nombre de travaux à l'ouverture des filtres: " + works.length);
     // console.log("Contenu de works: " + works);
     const filterButtons = document.querySelectorAll("#filters button");
@@ -137,6 +148,7 @@ function filterButtons(works) {
 
 // Fonction de filtrage
 function filters(works, currentWorks, categoryId) {
+    console.log("Filters: " + works.length);
     // console.log('Identifiant de la catégorie: ' + categoryId);
     // console.log('"Works" contient initialement: ' + works.length + ' travaux !');
     if (currentWorks !== undefined) {
@@ -368,22 +380,25 @@ function deleteAllWorksLink(works) {
         for (let i = 0; i < works.length; i++) {
             const work = works[i];
             console.log("Contenu de works avant l'appel: " + works.length);
-            deleteOneWorkOnly(works, work);
+            deleteOneWorkOnly(work);
             console.log("Contenu de works après l'appel: " + works.length);
             // works.splice(works.indexOf(work), 1);
         };
+        works = [];
+        console.log("Contenu de works après la boucle: " + works.length);
+        pageManager(works);
     });
 };
 
 
 // Fonction de suppression d'une seule oeuvre dans la bdd (et dans le DOM)
-function deleteOneWorkOnly(works, work) {
+function deleteOneWorkOnly(work) {
     const token = localStorage.getItem("token");
     const figureRemoved = document.getElementById("figureElement");
     const modalFigureRemoved = document.getElementById("modal-figure-element");
     figureRemoved.remove();
     modalFigureRemoved.remove();
-    console.log("Contenu de works avant le fetch: " + works.length);
+    // console.log("Contenu de works avant le fetch: " + works.length);
     fetch("http://localhost:5678/api/works/" + work.id, {
 
             method: "DELETE",
@@ -393,8 +408,8 @@ function deleteOneWorkOnly(works, work) {
             }
     })
     .then(console.log("Oeuvre supprimée !"))
-    works.splice(works.indexOf(work), 1);
-    console.log("Contenu de works après le fetch: " + works.length);
+    // works.splice(works.indexOf(work), 1);
+    // console.log("Contenu de works après le fetch: " + works.length);
     // filterButtons(works);
     // filtersDesactivator(works);
 };
@@ -438,7 +453,6 @@ function switchModalDisplay() {
     });
     // Affichage "Ajout photo" (-> modale2)
     modalAddImageButton.addEventListener("click", function() {
-        const imageFormUploaded = document.getElementById("image-form-uploaded");
         modalBackArrow.style.visibility = "visible";
         modalDisplay1.style.display = "none";
         modalDisplay2.style.display = "flex";
