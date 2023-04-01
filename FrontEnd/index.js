@@ -78,11 +78,7 @@ function attachElements(figureElement) {
 
 // Boutons de filtres
 function filterButtons(data) {
-    if (data === []) {
-        works = data;
-    } else {
-        works = data;
-    };
+    works = data;
     const filterButtons = document.querySelectorAll("#filters button");
     let currentWorks;    
     for (let filter of filterButtons) {
