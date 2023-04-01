@@ -14,17 +14,13 @@ function pageManager(data) {
     logoutMainPage();
     // Galerie principale & modale
     showWorks(data);
-    // filtersDesactivator(data);
     openModalButton();
     escapeAndTabKeys();
     switchModalDisplay();
     addOneWork(data);
     clickOnThePicture();
     deleteAllWorksLink(data);
-    console.log("Valeur de data: " + data);
     filterButtons(data);
-    // deleteWorksMainGallery(data);
-    // filterButtons(data);
 };
 
 
@@ -44,11 +40,9 @@ function showWorks(works) {
 
 // Fonction de suppression de tous les travaux de la galerie principale
 function deleteWorksMainGallery(works) {
-    console.log("DeleteWorksMainGallery: " + works.length);
     // Itérer sur les travaux
     for (let i = 0; i < works.length; i++) {
         const work = works[i];
-        console.log(work);
         removeElements();
     };
 };
@@ -57,7 +51,6 @@ function deleteWorksMainGallery(works) {
 // Fonction de suppression d'un seul élément de la galerie principale
 function removeElements() {
     const figureRemoved = document.getElementById("figureElement");
-    console.log("Contenu de figureRemoved avant sa suppression : " + figureRemoved);
     figureRemoved.remove();
 };
 
@@ -83,28 +76,6 @@ function attachElements(figureElement) {
 };
 
 
-/*
-// Fonction de désactivation des filtres
-function filtersDesactivator(works) {
-    const allFilterButton = document.querySelector("#all");
-    const objectsFilterButton = document.querySelector("#objects");
-    const apartmentsFilterButton = document.querySelector("#apartments");
-    const hotelsAndRestaurantsFilterButton = document.querySelector("#hotels-and-restaurants");
-    if (works === {}) {
-        allFilterButton.disabled = "true";
-        objectsFilterButton.disabled = "true";
-        apartmentsFilterButton.disabled = "true";
-        hotelsAndRestaurantsFilterButton.disabled = "true";
-    } else {
-        allFilterButton.disabled = "false";
-        objectsFilterButton.disabled = "false";
-        apartmentsFilterButton.disabled = "false";
-        hotelsAndRestaurantsFilterButton.disabled = "false";
-    };
-};
-*/
-
-
 // Boutons de filtres
 function filterButtons(data) {
     if (data === []) {
@@ -112,10 +83,6 @@ function filterButtons(data) {
     } else {
         works = data;
     };
-    console.log("FilterButtons: " + works.length);
-    // console.log(typeof works);
-    // console.log("Nombre de travaux à l'ouverture des filtres: " + works.length);
-    // console.log("Contenu de works: " + works);
     const filterButtons = document.querySelectorAll("#filters button");
     let currentWorks;    
     for (let filter of filterButtons) {
@@ -128,7 +95,6 @@ function filterButtons(data) {
             currentWorks = filters(works, currentWorks, apartmentsCategoryId);
 
         } else if (buttonTag === "hotels-and-restaurants") {
-            // console.log('Longueur de "works" dans "filteredWorks": ' + works.length + ' travaux.');
             currentWorks = filters(works, currentWorks, hotelsAndRestaurantsCategoryId);
 
         } else if (buttonTag === "all") {
@@ -148,37 +114,27 @@ function filterButtons(data) {
 
 // Fonction de filtrage
 function filters(works, currentWorks, categoryId) {
-    console.log("Filters: " + works.length);
-    // console.log('Identifiant de la catégorie: ' + categoryId);
-    // console.log('"Works" contient initialement: ' + works.length + ' travaux !');
     if (currentWorks !== undefined) {
-        // console.log('"CurrentWorks" a une valeur, la voici : ' + currentWorks);
-        // console.log("Longueur de currentWorks avant suppression: " + currentWorks.length)
-        // console.log('currentWorks is not "undefined".')
         deleteWorksMainGallery(currentWorks);
-        // console.log('Les travaux courants ont été supprimés.')
     } else if (currentWorks === undefined) {
         deleteWorksMainGallery(works);
     };
-    // const filteredWorks = works.filter(work => console.log(typeof(work.category.id)));
     const filteredWorks = works.filter(work => parseInt(work.categoryId, 10) === categoryId);
     showWorks(filteredWorks);
     currentWorks = filteredWorks;
-    // console.log('Valeur finale de "currentWorks": ' + currentWorks);
     return currentWorks;
 };
 
 
 // Gestion de l'affichage en mode connecté/déconnecté
-const headerLoginButton = document.querySelector("#header-login-button");
-const headerLogoutButton = document.querySelector("#header-logout-button");
-const filtersDiv = document.querySelector("#filters");
-const modifyImg = document.querySelector(".image-modify");
-const modifyArticle = document.querySelector(".article-modify");
-const modifyPortfolio = document.querySelector(".portfolio-modify");
-const loggedBlackStripe = document.querySelector(".logged-black-stripe");
-
 function loginLogoutDisplay() {
+    const headerLoginButton = document.querySelector("#header-login-button");
+    const headerLogoutButton = document.querySelector("#header-logout-button");
+    const filtersDiv = document.querySelector("#filters");
+    const modifyImg = document.querySelector(".image-modify");
+    const modifyArticle = document.querySelector(".article-modify");
+    const modifyPortfolio = document.querySelector(".portfolio-modify");
+    const loggedBlackStripe = document.querySelector(".logged-black-stripe");
     if (localStorage.getItem("token")) {
         headerLoginButton.style.display = "none";
         headerLogoutButton.style.display = "block";
@@ -197,6 +153,7 @@ function loginLogoutDisplay() {
 
 // Bouton de déconnexion de la page d'accueil
 function logoutMainPage() {
+    const headerLogoutButton = document.querySelector("#header-logout-button");
     headerLogoutButton.addEventListener("click", function () {
         localStorage.removeItem("token");
         loginLogoutDisplay();
@@ -348,8 +305,6 @@ function deleteOneModalWorkBin(works, work, figureElement, modalFigureElement) {
     const deleteButton = document.getElementById(work.id);
     deleteButton.addEventListener("click", function(e) {
         e.preventDefault();
-        // console.log("L'index de work est: ");
-        // console.log(works.indexOf(work));
         modalFigureElement.remove();
         figureElement.remove();
         fetch("http://localhost:5678/api/works/" + work.id, {
@@ -361,12 +316,7 @@ function deleteOneModalWorkBin(works, work, figureElement, modalFigureElement) {
                 }
         })
         .then(console.log("Oeuvre supprimée !"))
-        // .catch(console.log("La suppression a échoué !"))
-        // console.log(works);
         works.splice(works.indexOf(work), 1);
-        // filterButtons(works);
-        // filtersDesactivator(works);
-        // console.log(works);
     });
 };
 
@@ -379,13 +329,9 @@ function deleteAllWorksLink(works) {
         // Itérer sur les travaux
         for (let i = 0; i < works.length; i++) {
             const work = works[i];
-            console.log("Contenu de works avant l'appel: " + works.length);
             deleteOneWorkOnly(work);
-            console.log("Contenu de works après l'appel: " + works.length);
-            // works.splice(works.indexOf(work), 1);
         };
         works = [];
-        console.log("Contenu de works après la boucle: " + works.length);
         pageManager(works);
     });
 };
@@ -398,7 +344,6 @@ function deleteOneWorkOnly(work) {
     const modalFigureRemoved = document.getElementById("modal-figure-element");
     figureRemoved.remove();
     modalFigureRemoved.remove();
-    // console.log("Contenu de works avant le fetch: " + works.length);
     fetch("http://localhost:5678/api/works/" + work.id, {
 
             method: "DELETE",
@@ -408,10 +353,6 @@ function deleteOneWorkOnly(work) {
             }
     })
     .then(console.log("Oeuvre supprimée !"))
-    // works.splice(works.indexOf(work), 1);
-    // console.log("Contenu de works après le fetch: " + works.length);
-    // filterButtons(works);
-    // filtersDesactivator(works);
 };
 
 
@@ -427,17 +368,17 @@ function refreshModalGallery(works) {
 
 
 // Passage d'un affichage de la modale à un autre (modale1 / modale2)
-const modalAddImageButton = document.querySelector(".modal-add-image-button");
-const modalBackArrow = document.querySelector(".modal-back-arrow");
-const modalDisplay1 = document.querySelector(".modal-display-1");
-const modalDisplay2 = document.querySelector(".modal-display-2");
-const imageFormUploaded = document.getElementById("image-form-uploaded");
-const modalFormLandscapeIcon = document.querySelector(".modal-form-landscape-icon");
-const addImageFormLabel = document.getElementById("add-image-form-label");
-const fileInput = document.getElementById("file");
-const formFileInputParagraph = document.getElementById("form-file-input-paragraph");
-const submitButton = document.querySelector("#form-submit-button");
 function switchModalDisplay() {
+    const modalAddImageButton = document.querySelector(".modal-add-image-button");
+    const modalBackArrow = document.querySelector(".modal-back-arrow");
+    const modalDisplay1 = document.querySelector(".modal-display-1");
+    const modalDisplay2 = document.querySelector(".modal-display-2");
+    const imageFormUploaded = document.getElementById("image-form-uploaded");
+    const modalFormLandscapeIcon = document.querySelector(".modal-form-landscape-icon");
+    const addImageFormLabel = document.getElementById("add-image-form-label");
+    const fileInput = document.getElementById("file");
+    const formFileInputParagraph = document.getElementById("form-file-input-paragraph");
+    const submitButton = document.querySelector("#form-submit-button");
     // Affichage "Galerie photo" (-> modale1)
     modalBackArrow.addEventListener("click", function() {
         modalDisplay1.style.display = "flex";
@@ -466,16 +407,17 @@ function resetForm() {
 }
 
 
-// Fonction d'ajout d'une nouvelle oeuvre dans la bdd (-> modale2) 
-// avec actualisation du DOM dans les deux galeries
+// Fonction d'ajout d'une nouvelle oeuvre (-> modale2)
 function addOneWork(works) {
     submitButtonColor();
     const modalForm = document.querySelector(".modal-form");
     modalForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
+        // On récupère le token bearer
         const token = localStorage.getItem("token");
 
+        // On élabore notre objet formData
         const formData = new FormData();
         const formImgFile = document.getElementById("file").files[0];
         const formTitle = document.getElementById("title").value;
@@ -483,10 +425,8 @@ function addOneWork(works) {
         formData.append("image", formImgFile);
         formData.append("title", formTitle);
         formData.append("category", formCategoryId);
-        
-        // deleteWorksMainGallery(currentWorks);
-        // refreshModalGallery(currentWorks);
 
+        // On appelle l'api avec fetch
         fetch("http://localhost:5678/api/works", {
 
             method: "POST",
@@ -498,27 +438,14 @@ function addOneWork(works) {
         })
         .then(response => response.json())
         .then(function(newWork) {
-            console.log(newWork);
-            
-            // fetch("http://localhost:5678/api/works")
-            //     .then(response => response.json())
-                // .then(works => pageManager(works))
-                // .then(works => filterButtons(works))
-            
-            // console.log("DOM mis à jour !")
-            // console.log(works);
             works.push(newWork);
-            // console.log(works);
+            // Apparition de newWork dans le DOM
             const figureElement = createElements(newWork);
             attachElements(figureElement);
             const modalFigureElement = createModalElements(newWork);
             attachModalElements(modalFigureElement);
-            console.log("La nouvelle oeuvre est bien affichée !");
-            // console.log("ID de la nouvelle oeuvre: " + newWork.categoryId);
-            // console.log("Type de cet ID: " + typeof(newWork.categoryId));
+
             deleteOneModalWorkBin(works, newWork, figureElement, modalFigureElement);
-            // filtersDesactivator(works);
-            // filterButtons(works);
 
             // On informe l'utilisateur qu'une image a été ajoutée
             imgAdded();
@@ -559,13 +486,9 @@ const previewPicture = function(e) {
 
         reader.onload = function(e) {
             imageFormUploaded.src = e.target.result;
-            // console.log(imageFormUploaded);
         };
-        // console.log(reader);
         reader.readAsDataURL(picture);
     };
-    // console.log(picture);
-    // console.log(reader);
 };
 
 
@@ -597,13 +520,12 @@ function submitButtonColor() {
 };
 
 
-// Infobulle de renseignement obligatoire du champ "input type=file"
+// Message du chargement obligatoire d'une image avant soumission (-> modale2)
 function emptyFieldToolTip() {
     const emptyFieldMessage = document.getElementById('empty-field-message');
     const fileInput = document.querySelector("#file");
     emptyFieldMessage.style.display = "block";
     if (fileInput.value === "") {
-        
         setTimeout(() => {
         emptyFieldMessage.style.display = "none";
         }, 2000);
@@ -613,11 +535,11 @@ function emptyFieldToolTip() {
 };
 
 
-// Message: une image vient d'être ajoutée
+// Message: une image vient d'être ajoutée (-> modale2)
 function imgAdded() {
     const imgAddedMessage = document.getElementById("img-added");
     imgAddedMessage.style.display = "flex";
     setTimeout(() => {
         imgAddedMessage.style.display = "none";
         }, 2000);
-}
+};

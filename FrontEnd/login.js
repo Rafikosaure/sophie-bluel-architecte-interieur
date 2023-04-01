@@ -1,5 +1,4 @@
 const loginForm = document.getElementById("login-form");
-// const loginButton = document.getElementById("login-button");
 
 function loginFormManager() {
     loginForm.addEventListener("submit", function(event) {
@@ -16,12 +15,11 @@ function loginFormManager() {
     .then(data => {
         if (data.token) {
             let token = data.token;
-            console.log(token);
+            // Authentification réussie
             localStorage.setItem("token", token);
-            // alert("Connexion réussie ! Cliquer sur OK pour revenir à la page d'accueil.")
-            // Redirection vers la page d'accueil
             window.location = "index.html";
         } else {
+            // Echec de l'authentification
             alert("Identifiants incorrects.");
         };
     })
