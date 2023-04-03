@@ -458,6 +458,14 @@ function addOneWork(works) {
         })
         .catch(error => console.log(error))
     })
+    modalAfterSubmit();
+};
+
+
+// Appel de fermeture de la modale après ajout d'une oeuvre
+function modalAfterSubmit() {
+    const modalForm = document.querySelector(".modal-form");
+    modalForm.addEventListener("submit", closeModal);
 };
 
 
