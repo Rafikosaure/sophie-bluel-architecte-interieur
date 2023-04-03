@@ -405,14 +405,14 @@ function resetForm() {
 }
 
 
-// Fonction d'ajout d'une nouvelle oeuvre (-> modale2)
+// Fonction d'ajout d'une nouvelle oeuvre avec actualisation du DOM (-> modale2)
 function addOneWork(works) {
     submitButtonColor();
     const modalForm = document.querySelector(".modal-form");
     modalForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        // On récupère le token bearer
+        // On récupère le jeton porteur
         const token = localStorage.getItem("token");
 
         // On élabore notre objet formData
@@ -491,7 +491,6 @@ const previewPicture = function(e) {
         reader.onload = function(e) {
             imageFormUploaded.src = e.target.result;
         };
-        document.getElementsByClassName("modal-form-img-zone")[0].appendChild(imageFormUploaded);
     });
 };
 
