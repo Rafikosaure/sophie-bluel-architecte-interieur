@@ -208,19 +208,6 @@ const closeModal = function(e) {
     modal.removeEventListener("click", closeModal);
     modal.querySelector(".modal-close-cross").removeEventListener("click", closeModal);
     modal.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
-    document.querySelector(".modal-form").reset();
-    const imageFormUploaded = document.getElementById("image-form-uploaded");
-    const modalFormLandscapeIcon = document.querySelector(".modal-form-landscape-icon");
-    const addImageFormLabel = document.getElementById("add-image-form-label");
-    const fileInput = document.getElementById("file");
-    const formFileInputParagraph = document.getElementById("form-file-input-paragraph");
-    const submitButton = document.querySelector("#form-submit-button");
-    imageFormUploaded.style.display = "none";
-    modalFormLandscapeIcon.style.display = "flex";
-    addImageFormLabel.style.display = "flex";
-    fileInput.style.display = "flex";
-    formFileInputParagraph.style.display = "flex";
-    submitButton.style.backgroundColor = "#A7A7A7";
 };
 
 
@@ -388,7 +375,7 @@ function switchModalDisplay() {
         fileInput.style.display = "flex";
         formFileInputParagraph.style.display = "flex";
         submitButton.style.backgroundColor = "#A7A7A7";
-        document.querySelector(".modal-form").reset();
+        resetForm();
     });
     // Affichage "Ajout photo" (-> modale2)
     modalAddImageButton.addEventListener("click", function() {
