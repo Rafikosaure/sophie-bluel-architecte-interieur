@@ -19,6 +19,7 @@ function pageManager(data) {
     switchModalDisplay();
     addOneWork(data);
     clickOnThePicture();
+    previewPicture();
     deleteAllWorksLink(data);
     filterButtons(data);
 };
@@ -78,7 +79,7 @@ function attachElements(figureElement) {
 
 // Boutons de filtres
 function filterButtons(data) {
-    works = data;
+    let works = data;
     const filterButtons = document.querySelectorAll("#filters button");
     let currentWorks;    
     for (let filter of filterButtons) {
@@ -333,7 +334,7 @@ function deleteAllWorksLink(works) {
 };
 
 
-// Fonction de suppression d'une seule oeuvre dans la bdd (et dans le DOM)
+// Fonction de suppression d'une oeuvre dans la bdd avec actualisation du DOM (-> modale1)
 function deleteOneWorkOnly(work) {
     const token = localStorage.getItem("token");
     const figureRemoved = document.getElementById("figureElement");
@@ -352,7 +353,7 @@ function deleteOneWorkOnly(work) {
 };
 
 
-// Fonction de rafraichissement de la galerie de la modale
+// Fonction de rafraichissement de toute la galerie de la modale (-> modale1)
 function refreshModalGallery(works) {
     // Itérer sur les travaux
     for (let i = 0; i < works.length; i++) {
@@ -422,7 +423,7 @@ function addOneWork(works) {
         formData.append("title", formTitle);
         formData.append("category", formCategoryId);
 
-        // On appelle l'api avec fetch
+        // On appelle l'api avec fetch et le verbe POST
         fetch("http://localhost:5678/api/works", {
 
             method: "POST",
@@ -435,12 +436,14 @@ function addOneWork(works) {
         .then(response => response.json())
         .then(function(newWork) {
             works.push(newWork);
+
             // Apparition de newWork dans le DOM
             const figureElement = createElements(newWork);
             attachElements(figureElement);
             const modalFigureElement = createModalElements(newWork);
             attachModalElements(modalFigureElement);
 
+            // On appelle la fonction de suppression avec la nouvelle oeuvre en argument
             deleteOneModalWorkBin(works, newWork, figureElement, modalFigureElement);
 
             // On informe l'utilisateur qu'une image a été ajoutée
@@ -462,17 +465,13 @@ function addOneWork(works) {
 
 // Fonction d'affichage de la miniature dans le formulaire d'ajout (-> modale2)
 const previewPicture = function(e) {
-    const [picture] = e.files;
     const imageFormUploaded = document.getElementById("image-form-uploaded");
     const modalFormLandscapeIcon = document.querySelector(".modal-form-landscape-icon");
     const addImageFormLabel = document.getElementById("add-image-form-label");
     const fileInput = document.getElementById("file");
     const formFileInputParagraph = document.getElementById("form-file-input-paragraph");
 
-    const types = [ "image/jpg", "image/jpeg", "image/png" ];
-    const reader = new FileReader();
-
-    if (picture && types.includes(picture.type)) {
+    fileInput.addEventListener("change", function() {
 
         imageFormUploaded.style.display = "block";
         modalFormLandscapeIcon.style.display = "none";
@@ -480,11 +479,14 @@ const previewPicture = function(e) {
         fileInput.style.display = "none";
         formFileInputParagraph.style.display = "none";
 
+        const reader = new FileReader();
+        reader.readAsDataURL(fileInput.files[0]);
+
         reader.onload = function(e) {
             imageFormUploaded.src = e.target.result;
         };
-        reader.readAsDataURL(picture);
-    };
+        document.getElementsByClassName("modal-form-img-zone")[0].appendChild(imageFormUploaded);
+    });
 };
 
 
