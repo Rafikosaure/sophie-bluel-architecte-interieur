@@ -340,6 +340,21 @@ footer nav ul {
 	height: 700px;
 	padding-bottom: 200px;
 	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#incorrect-logins {
+	display: none;
+	position: absolute;
+	z-index: 1;
+	color: red;
+	background-color: white;
+	padding: 20px;
+	font-size: 18px;
+	border: solid 2px red;
+	border-radius: 10px;
+	box-shadow: 10px 5px 5px #A7A7A7;
 }
 
 footer {
@@ -427,7 +442,7 @@ footer {
 	position: relative;
 }
 
-/* Ici : icone "poubelle" (modale) */
+
 .fa-trash-can {
 	color: white;
 	font-size: 12px;

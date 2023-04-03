@@ -1,5 +1,7 @@
 const loginForm = document.getElementById("login-form");
 
+
+// Authentification de l'utilisateur
 function loginFormManager() {
     loginForm.addEventListener("submit", function(event) {
     event.preventDefault();
@@ -20,11 +22,22 @@ function loginFormManager() {
             window.location = "index.html";
         } else {
             // Echec de l'authentification
-            alert("Identifiants incorrects.");
+            incorrectLogins();
         };
     })
     .catch(error => console.error(error));
     });
 };
+
+
+// Message "Identifiants incorrects !"
+function incorrectLogins() {
+    const incorrectLogins = document.querySelector("#incorrect-logins");
+    incorrectLogins.style.display = "block";
+        setTimeout(() => {
+        incorrectLogins.style.display = "none";
+        }, 2000);
+};
+
 
 loginFormManager();
