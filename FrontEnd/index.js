@@ -20,6 +20,7 @@ function pageManager(data) {
     addOneWork(data);
     clickOnThePicture();
     previewPicture();
+    emptyFieldToolTip();
     deleteAllWorksLink(data);
     filterButtons(data);
 };
@@ -446,9 +447,6 @@ function addOneWork(works) {
             // On appelle la fonction de suppression avec la nouvelle oeuvre en argument
             deleteOneModalWorkBin(works, newWork, figureElement, modalFigureElement);
 
-            // On informe l'utilisateur qu'une image a été ajoutée
-            imgAdded();
-
             // On réinitialise le formulaire d'ajout ainsi que son affichage
             resetForm();
             document.querySelector("#image-form-uploaded").style.display = "none";
@@ -520,24 +518,17 @@ function submitButtonColor() {
 
 // Message du chargement obligatoire d'une image avant soumission (-> modale2)
 function emptyFieldToolTip() {
-    const emptyFieldMessage = document.getElementById('empty-field-message');
+    const submitButton = document.getElementById("form-submit-button");
+    const emptyFieldMessage = document.getElementById("empty-field-message");
     const fileInput = document.querySelector("#file");
-    emptyFieldMessage.style.display = "block";
-    if (fileInput.value === "") {
-        setTimeout(() => {
-        emptyFieldMessage.style.display = "none";
-        }, 2000);
-    } else {
-        emptyFieldMessage.style.display = "none";
-    };
+
+    submitButton.addEventListener("click", function() {
+        if (fileInput.value === "") {
+            emptyFieldMessage.style.display = "block";
+            setTimeout(() => {
+            emptyFieldMessage.style.display = "none";
+            }, 2000);
+        };
+    });
 };
 
-
-// Message: une image vient d'être ajoutée (-> modale2)
-function imgAdded() {
-    const imgAddedMessage = document.getElementById("img-added");
-    imgAddedMessage.style.display = "flex";
-    setTimeout(() => {
-        imgAddedMessage.style.display = "none";
-        }, 2000);
-};
