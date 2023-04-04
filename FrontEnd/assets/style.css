@@ -603,6 +603,7 @@ label[for="file"]:hover {
 
 .modal-form-enter-data {
 	height: 55px;
+	background-color: white;
 	border: none;
 	box-shadow: 3px 3px 6px 3px rgba(0, 0, 0, 0.09);
 }
