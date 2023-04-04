@@ -49,12 +49,6 @@ table {
 /** end reset css**/
 
 
-/* body {
-	max-width: 1140px;
-	margin:auto;
-	font-family: 'Work Sans' ;
-	font-size: 14px;
-} */
 body {
 	max-width: 1400px;
 	margin:auto;
@@ -64,7 +58,7 @@ body {
 }
 
 
-/* Ajout (.logged-black-stripe) du dev front-end */
+/* Header */
 .logged-black-stripe {
 	height: 50px;
 	background-color: black;
@@ -73,7 +67,6 @@ body {
 	justify-content: center;
 	align-items: center;
 }
-
 
 #publish-changes-link {
 	text-decoration: none;
@@ -87,12 +80,6 @@ body {
 	cursor: pointer;
 }
 
-
-/* header {
-	display: flex;
-	justify-content: space-between;
-	margin: 50px 0
-} */
 header {	
 	display: flex;
 	flex-direction: column;
@@ -100,7 +87,6 @@ header {
 	justify-content: center;
 }
 
-/* Ajout (header-main-content) du dev front-end */
 .header-main-content {
 	display: flex;
 	flex-direction: row;
@@ -110,20 +96,6 @@ header {
 	justify-content: space-between;
 	margin-top: 40px;
 }
-
-
-/* Ajout (main) du dev front-end */
-main {
-	max-width: 1140px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-
-section {
-	margin: 50px 0
-}
-
 h1{
 	display: flex;
 	flex-direction: column;
@@ -156,25 +128,6 @@ nav li {
 	font-size: 1.2em;
 }
 
-
-/* Modifications du dev front-end */
-.modify {
-	font-size: 15px;
-}
-
-.image-modify {
-	margin-top: 6px;
-}
-
-.article-modify {
-	margin-bottom: 20px;
-}
-
-.portfolio-modify {
-	line-height: 32px;
-	margin-left: 20px;
-}
-
 nav a {
 	text-decoration: none;
 	color: black;
@@ -194,12 +147,23 @@ nav a:hover {
 #header-logout-button:hover {
 	cursor: pointer;
 }
-/* Fin des modifications */
-
 
 li:hover {
 	color: #B1663C;
 }
+
+
+/* Main */
+main {
+	max-width: 1140px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+section {
+	margin: 50px 0;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -209,8 +173,6 @@ li:hover {
 }
 #introduction img {
 	display: block;
-	/* margin: auto; */
-	/* width: 80%; */
 	width: 90%;
 }
 
@@ -229,81 +191,24 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
-.gallery {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+
+.modify {
+	font-size: 15px;
 }
 
-.gallery img {
-	width: 100%;
+.image-modify {
+	margin-top: 6px;
 }
 
-
-/* Modification du dev front-end */
-.contact a {
-	color: black;
-	display: flex;
-	justify-content: center;
-}
-/* Fin de la modification */
-
-
-.contact {
-	width: 50%;
-	margin: auto;
-}
-.contact > * {
-	text-align: center;
-
-}
-.contact h2{
+.article-modify {
 	margin-bottom: 20px;
 }
 
-.contact form {
-	text-align: left;
-	margin-top:30px;
-	display: flex;
-	flex-direction: column;
+.portfolio-modify {
+	line-height: 32px;
+	margin-left: 20px;
 }
 
-.contact input {
-	height: 50px;
-	font-size: 1.2em;
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-}
-.contact label {
-	margin: 2em 0 1em 0;
-}
-.contact textarea {
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-}
-
-input[type="submit"]{
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
-	margin : 2em auto ;
-	width: 180px;
-	text-align: center;
-	border-radius: 60px ;
-	cursor: pointer;
-}
-
-footer nav ul {
-	display: flex;
-	/* justify-content: flex-end; */
-	justify-content: center;
-	margin: 2em
-}
-
-/* Styles CSS apportés par le dev Front-End */
 .projects-title-modify {
 	display: flex;
 	justify-content: center;
@@ -336,6 +241,89 @@ footer nav ul {
 	background-color: #1D6154;
 }
 
+.gallery {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+
+.gallery img {
+	width: 100%;
+}
+
+.contact a {
+	color: black;
+	display: flex;
+	justify-content: center;
+}
+
+.contact {
+	width: 50%;
+	margin: auto;
+}
+.contact > * {
+	text-align: center;
+
+}
+.contact h2{
+	margin-bottom: 20px;
+}
+
+.contact form {
+	text-align: left;
+	margin-top:30px;
+	display: flex;
+	flex-direction: column;
+}
+
+.contact input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.contact label {
+	margin: 2em 0 1em 0;
+}
+
+.contact textarea {
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+input[type="submit"]{
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 2em auto ;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px ;
+	cursor: pointer;
+}
+
+
+/* Footer */
+footer {
+	height: 60px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	background-color: white
+}
+
+footer nav ul {
+	display: flex;
+	justify-content: center;
+	margin: 2em
+}
+
+
+/* Login page */
 .main-password {
 	height: 700px;
 	padding-bottom: 200px;
@@ -357,17 +345,8 @@ footer nav ul {
 	box-shadow: 10px 5px 5px #A7A7A7;
 }
 
-footer {
-	height: 60px;
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	background-color: white
-}
 
-
-
-/* Styles CSS de la modale */
+/* Modal */
 .modal {
 	position: fixed;
 	display: flex;
@@ -498,25 +477,40 @@ footer {
 	animation-name: slideToBottom;
 }
 
-
 @keyframes fadeIn {
-	from { opacity: 0; }
-	to { opacity: 1; };
+from {
+	opacity : 0;
+	}
+	to {
+	opacity : 1;
+	}
 }
 
 @keyframes fadeOut {
-	from { opacity: 1; }
-	to { opacity: 0; };
+from {
+	opacity : 1;
+	}
+	to {
+	opacity : 0;
+	}
 }
 
 @keyframes slideFromTop {
-	from { transform: translateY(-50px) }
-	to { transform: translateY(0px) };
+from {
+	transform : translateY(-50px);
+	}
+	to {
+	transform : translateY(0);
+	}	
 }
 
 @keyframes slideToBottom {
-	from { transform: translateY(0px) }
-	to { transform: translateY(50px) };
+from {
+	transform: translateY(0px);
+	}
+	to {
+	transform: translateY(50px);
+	}
 }
 
 .modal-display-2 {
