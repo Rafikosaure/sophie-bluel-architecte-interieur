@@ -501,7 +501,7 @@ function submitButtonColor() {
 
     modalForm.addEventListener("change", (event) => {
         console.log(fileInput.value);
-        if (fileInput.value !== "" && titleInput.value !== "" && selectCategory !== undefined) {
+        if (fileInput.value !== "" && titleInput.value !== "" && selectCategory.value !== "") {
             submitButton.style.backgroundColor = "#1D6154";
         } else {
             submitButton.style.backgroundColor = "#A7A7A7";
