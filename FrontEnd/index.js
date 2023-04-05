@@ -96,7 +96,7 @@ function filterButtons(data) {
 
         } else if (buttonTag === "all") {
             const filteredWorks = works;
-            if (currentWorks != undefined) {
+            if (currentWorks !== undefined) {
                 deleteWorksMainGallery(currentWorks);
             } else if (currentWorks === undefined) {
                 deleteWorksMainGallery(works);
