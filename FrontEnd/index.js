@@ -365,6 +365,7 @@ function switchModalDisplay() {
     const submitButton = document.querySelector("#form-submit-button");
     // Affichage "Galerie photo" (-> modale1)
     modalBackArrow.addEventListener("click", function() {
+        resetForm();
         modalDisplay1.style.display = "flex";
         modalDisplay2.style.display = "none";
         modalBackArrow.style.visibility = "hidden";
@@ -374,13 +375,19 @@ function switchModalDisplay() {
         fileInput.style.display = "flex";
         formFileInputParagraph.style.display = "flex";
         submitButton.style.backgroundColor = "#A7A7A7";
-        resetForm();
     });
     // Affichage "Ajout photo" (-> modale2)
     modalAddImageButton.addEventListener("click", function() {
+        resetForm()
         modalBackArrow.style.visibility = "visible";
         modalDisplay1.style.display = "none";
         modalDisplay2.style.display = "flex";
+        imageFormUploaded.style.display = "none";
+        modalFormLandscapeIcon.style.display = "flex";
+        addImageFormLabel.style.display = "flex";
+        fileInput.style.display = "flex";
+        formFileInputParagraph.style.display = "flex";
+        submitButton.style.backgroundColor = "#A7A7A7";
     });
 };
 
