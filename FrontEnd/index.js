@@ -20,7 +20,6 @@ function pageManager(data) {
     addOneWork(data);
     clickOnThePicture();
     previewPicture();
-    emptyFieldToolTip();
     deleteAllWorksLink(data);
     filterButtons(data);
 };
@@ -509,20 +508,4 @@ function submitButtonColor() {
     });
 };
 
-
-// Message du chargement obligatoire d'une image avant soumission (-> modale2)
-function emptyFieldToolTip() {
-    const submitButton = document.getElementById("form-submit-button");
-    const emptyFieldMessage = document.getElementById("empty-field-message");
-    const fileInput = document.querySelector("#file");
-
-    submitButton.addEventListener("click", function() {
-        if (fileInput.value === "") {
-            emptyFieldMessage.style.display = "block";
-            setTimeout(() => {
-            emptyFieldMessage.style.display = "none";
-            }, 2000);
-        };
-    });
-};
 
