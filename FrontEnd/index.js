@@ -26,7 +26,8 @@ function pageManager(data) {
 
 
 // Gestion de l'affichage des travaux dans les galeries
-function showWorks(works) {
+function showWorks(data) {
+    let works = data;
     // Itérer sur les travaux
     for (let i = 0; i < works.length; i++) {
         const work = works[i];
@@ -40,7 +41,8 @@ function showWorks(works) {
 
 
 // Fonction de suppression de tous les travaux de la galerie principale
-function deleteWorksMainGallery(works) {
+function deleteWorksMainGallery(data) {
+    let works = data;
     // Itérer sur les travaux
     for (let i = 0; i < works.length; i++) {
         const work = works[i];
@@ -95,12 +97,12 @@ function filterButtons(data) {
             currentWorks = filters(works, currentWorks, hotelsAndRestaurantsCategoryId);
 
         } else if (buttonTag === "all") {
-            const filteredWorks = works;
             if (currentWorks !== undefined) {
                 deleteWorksMainGallery(currentWorks);
             } else if (currentWorks === undefined) {
                 deleteWorksMainGallery(works);
             };
+            const filteredWorks = works;
             showWorks(filteredWorks);
             currentWorks = filteredWorks;
         };
@@ -110,7 +112,8 @@ function filterButtons(data) {
 
 
 // Fonction de filtrage
-function filters(works, currentWorks, categoryId) {
+function filters(data, currentWorks, categoryId) {
+    let works = data;
     if (currentWorks !== undefined) {
         deleteWorksMainGallery(currentWorks);
     } else if (currentWorks === undefined) {
@@ -399,7 +402,8 @@ function resetForm() {
 
 
 // Fonction d'ajout d'une nouvelle oeuvre avec actualisation du DOM (-> modale2)
-function addOneWork(works) {
+function addOneWork(data) {
+    let works = data;
     submitButtonColor();
     const modalForm = document.querySelector(".modal-form");
     modalForm.addEventListener("submit", (e) => {
