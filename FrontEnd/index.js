@@ -135,10 +135,14 @@ function loginLogoutDisplay() {
     const modifyArticle = document.querySelector(".article-modify");
     const modifyPortfolio = document.querySelector(".portfolio-modify");
     const loggedBlackStripe = document.querySelector(".logged-black-stripe");
-    if (localStorage.getItem("token")) {
+    if (sessionStorage.getItem("token")) {
         headerLoginButton.style.display = "none";
         headerLogoutButton.style.display = "block";
+        modifyImg.style.display = "block";
+        modifyArticle.style.display = "block";
+        modifyPortfolio.style.display = "block";
         filtersDiv.style.visibility = "hidden";
+        loggedBlackStripe.style.display = "flex";
     } else {
         headerLoginButton.style.display = "block";
         headerLogoutButton.style.display = "none";
@@ -155,7 +159,7 @@ function loginLogoutDisplay() {
 function logoutMainPage() {
     const headerLogoutButton = document.querySelector("#header-logout-button");
     headerLogoutButton.addEventListener("click", function () {
-        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
         loginLogoutDisplay();
     });
 };
@@ -288,7 +292,7 @@ function attachModalElements(modalFigureElement) {
 
 // Boutons "poubelle" pour supprimer l'un des travaux (-> modale1)
 function deleteOneModalWorkBin(works, work, figureElement, modalFigureElement) {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const deleteButton = document.getElementById(work.id);
     deleteButton.addEventListener("click", function(e) {
         e.preventDefault();
@@ -326,7 +330,7 @@ function deleteAllWorksLink(works) {
 
 // Fonction de suppression d'une oeuvre dans la bdd avec actualisation du DOM (-> modale1)
 function deleteOneWorkOnly(work) {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const figureRemoved = document.getElementById("figureElement");
     const modalFigureRemoved = document.getElementById("modal-figure-element");
     figureRemoved.remove();
@@ -410,7 +414,7 @@ function addOneWork(data) {
         e.preventDefault();
 
         // On récupère le jeton porteur
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
 
         // On élabore notre objet formData
         const formData = new FormData();
