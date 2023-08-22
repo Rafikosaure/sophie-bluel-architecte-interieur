@@ -14,18 +14,15 @@ function loginFormManager() {
         headers: {"Accept": "application/json", "Content-Type": "application/json"}
     })
     .then(response => response.json())
-    .then(console.log("Tout est OK !"))
     .then(data => {
         if (data.token) {
             let token = data.token;
             // Authentification réussie
             sessionStorage.setItem("token", token);
             window.location = "index.html";
-            console.log("Token enregistré !")
         } else {
             // Echec de l'authentification
             incorrectLogins();
-            console.log("Echec de l'enregistrement du token !")
         };
     })
     .catch(error => console.error(error));
