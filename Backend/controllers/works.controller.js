@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const db = require('./../models');
 const Works = db.works
 
@@ -26,11 +28,25 @@ exports.create = async (req, res) => {
 }
 
 exports.delete = async (req, res) => {
-	try{
-		await Works.destroy({where:{id: req.params.id}})
-		return res.status(204).json({message: 'Work Deleted Successfully'})
-	}catch(e){
-		return res.status(500).json({error: new Error('Something went wrong')})
-	}
+	try {
+		const work = await Works.findOne({ where: { id: req.params.id } });
+		if (!work) {
+			return res.status(404).json({ error: 'Work not found' });
+		}
 
+		const filename = work.imageUrl.split('/images/').pop();
+		const imagePath = path.join(__dirname, '../images', filename);
+
+		await Works.destroy({ where: { id: req.params.id } });
+
+		fs.unlink(imagePath, (err) => {
+			if (err && err.code !== 'ENOENT') {
+				console.error('Impossible de supprimer le fichier image :', err);
+			}
+		});
+
+		return res.status(204).send();
+	} catch (e) {
+		return res.status(500).json({ error: new Error('Something went wrong') });
+	}
 }
