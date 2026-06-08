@@ -4,6 +4,7 @@ const hotelsAndRestaurantsCategoryId = 3;
 
 let allWorks = [];
 let currentFilter = "all";
+let newWorkIds = [];
 
 fetchWorks().then(works => {
     allWorks = works;
@@ -25,6 +26,9 @@ function pageManager() {
     loginLogoutDisplay();
     logoutMainPage();
 
+    // Bouton de retour en haut de page
+    backToTopButton();
+
     // Galerie principale & modale
     openModalButton();
     escapeAndTabKeys();
@@ -38,14 +42,14 @@ function pageManager() {
 
 
 // Gestion de l'affichage des travaux dans les deux galeries (principale & modale)
+// Les oeuvres déjà présentes en base ne sont pas supprimables individuellement (pas de bouton "poubelle")
 function showWorks(works) {
     for (let i = 0; i < works.length; i++) {
         const work = works[i];
         const figureElement = createElements(work);
         attachElements(figureElement);
-        const modalFigureElement = createModalElements(work);
+        const modalFigureElement = createModalElements(work, false);
         attachModalElements(modalFigureElement);
-        deleteOneModalWorkBin(work, modalFigureElement);
     };
 };
 
@@ -164,6 +168,21 @@ function loginLogoutDisplay() {
 };
 
 
+// Bouton flottant de retour en haut de page (visible uniquement quand l'utilisateur a scrollé vers le bas)
+function backToTopButton() {
+    const button = document.getElementById("back-to-top-button");
+    const showThreshold = 200;
+
+    window.addEventListener("scroll", function() {
+        button.classList.toggle("visible", window.scrollY > showThreshold);
+    });
+
+    button.addEventListener("click", function() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+};
+
+
 // Bouton de déconnexion de la page d'accueil
 function logoutMainPage() {
     const headerLogoutButton = document.querySelector("#header-logout-button");
@@ -273,21 +292,24 @@ function openModalButton() {
 
 
 // Fonction de création des éléments dans la galerie de la modale
-function createModalElements(work) {
+// Le bouton "poubelle" n'est créé que pour les oeuvres nouvellement ajoutées (isNewWork = true)
+function createModalElements(work, isNewWork) {
     const modalImageElement = document.createElement("img");
     modalImageElement.src = work.imageUrl;
-    const deleteButton = document.createElement("button");
-    deleteButton.setAttribute("id", "work-" + work.id);
-    deleteButton.classList.add("delete-button");
-    const deleteIcon = document.createElement("i");
-    deleteIcon.classList.add("fa-solid", "fa-trash-can");
-    deleteButton.appendChild(deleteIcon);
     const modalFigureCaption = document.createElement("figcaption");
     modalFigureCaption.innerText = "éditer";
     const modalFigureElement = document.createElement("figure");
     modalFigureElement.setAttribute("id", "modal-figure-" + work.id);
     modalFigureElement.appendChild(modalImageElement);
-    modalFigureElement.appendChild(deleteButton);
+    if (isNewWork) {
+        const deleteButton = document.createElement("button");
+        deleteButton.setAttribute("id", "work-" + work.id);
+        deleteButton.classList.add("delete-button");
+        const deleteIcon = document.createElement("i");
+        deleteIcon.classList.add("fa-solid", "fa-trash-can");
+        deleteButton.appendChild(deleteIcon);
+        modalFigureElement.appendChild(deleteButton);
+    }
     modalFigureElement.appendChild(modalFigureCaption);
     return modalFigureElement;
 };
@@ -319,6 +341,8 @@ function deleteOneModalWorkBin(work, modalFigureElement) {
         })
         .then(() => {
             allWorks = allWorks.filter(w => w.id !== work.id);
+            newWorkIds = newWorkIds.filter(id => id !== work.id);
+            updateDeleteGalleryLinkState();
             console.log("Oeuvre supprimée !");
         });
     });
@@ -326,17 +350,29 @@ function deleteOneModalWorkBin(work, modalFigureElement) {
 
 
 // Lien rouge de suppression de tous les travaux (-> modale1)
+// Ne supprime que les oeuvres nouvellement ajoutées : celles déjà en base sont protégées
 function deleteAllWorksLink() {
     const deleteAllWorksLink = document.querySelector(".modal-delete-gallery");
+    updateDeleteGalleryLinkState();
     deleteAllWorksLink.addEventListener("click", function(e) {
         e.stopPropagation();
         e.preventDefault();
-        const worksToDelete = allWorks.slice();
-        allWorks = [];
+        if (newWorkIds.length === 0) return;
+        const worksToDelete = allWorks.filter(work => newWorkIds.includes(work.id));
+        allWorks = allWorks.filter(work => !newWorkIds.includes(work.id));
+        newWorkIds = [];
         for (let i = 0; i < worksToDelete.length; i++) {
             deleteOneWorkOnly(worksToDelete[i]);
         }
+        updateDeleteGalleryLinkState();
     });
+};
+
+
+// Grise le lien "Supprimer la galerie" tant qu'aucune oeuvre n'a été nouvellement ajoutée
+function updateDeleteGalleryLinkState() {
+    const deleteAllWorksLink = document.querySelector(".modal-delete-gallery");
+    deleteAllWorksLink.classList.toggle("modal-delete-gallery-disabled", newWorkIds.length === 0);
 };
 
 
@@ -439,14 +475,16 @@ function addOneWork() {
         .then(response => response.json())
         .then(function(newWork) {
             allWorks.push(newWork);
+            newWorkIds.push(newWork.id);
 
             // Galerie principale : re-rendu en respectant le filtre courant
             filterParameters(currentFilter);
 
-            // Galerie de la modale
-            const modalFigureElement = createModalElements(newWork);
+            // Galerie de la modale (oeuvre nouvellement ajoutée -> bouton "poubelle" visible)
+            const modalFigureElement = createModalElements(newWork, true);
             attachModalElements(modalFigureElement);
             deleteOneModalWorkBin(newWork, modalFigureElement);
+            updateDeleteGalleryLinkState();
 
             // Retour à la galerie de la modale sans fermer la fenêtre
             goToModalDisplay1();
