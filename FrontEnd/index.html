@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Sophie Bluel - Architecte d'intérieur</title>
+	<link rel="icon" type="image/icon" href="./assets/icons/favicon.ico">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,15 +17,15 @@
 	
 	
 <header>
-	<div class="logged-black-stripe"><div><i class="fa-regular fa-pen-to-square"></i> Mode édition</div><a id="publish-changes-link" class="js-modal" href="#modal">publier les changements</a></div>
+	<div class="logged-black-stripe"><div class="edit-changes"><i class="fa-regular fa-pen-to-square"></i> Mode édition</div><a id="publish-changes-link" class="js-modal" href="#modal">publier les changements</a></div>
 	<div class="header-main-content">
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
-			<li><a href="#projects">projets</a></li>
-			<li><a href="#contact">contact</a></li>
+			<li class="navlink-desktop"><a href="#projects">projets</a></li>
+			<li class="navlink-desktop"><a href="#contact">contact</a></li>
 			<li><a id="header-login-button" href="login.html">login</a><a id="header-logout-button">logout</a></li>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+			<li class="navlink-instagram"><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
 	</div>
@@ -109,6 +110,9 @@
 			</div>
 		</div>
 	</div>
+	<button id="back-to-top-button" aria-label="Retour en haut de page" title="Retour en haut de page">
+		<img src="./assets/icons/toUp.webp" alt="Retour en haut de page">
+	</button>
 </main>
 
 <footer>
