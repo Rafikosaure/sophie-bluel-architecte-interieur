@@ -10,7 +10,7 @@ fetchWorks().then(works => {
     allWorks = works;
     showWorks(works);
 });
-pageManager();
+document.addEventListener("DOMContentLoaded", pageManager);
 
 
 // Fonction de récupération des travaux depuis l'API
@@ -29,6 +29,9 @@ function pageManager() {
     // Bouton de retour en haut de page
     backToTopButton();
 
+    // Menu hamburger de la page d'accueil
+    initBurgerMenu(".burger-menu", ".burger-menu-links");
+
     // Galerie principale & modale
     openModalButton();
     escapeAndTabKeys();
@@ -38,7 +41,42 @@ function pageManager() {
     filterButtons();
     addOneWork();
     deleteAllWorksLink();
-};
+}
+
+// Fonction pour basculer l'état du menu
+function toggleMenu(menu, isOpen) {
+    if (isOpen) {
+        menu.style.opacity = "1";
+        menu.style.visibility = "visible";
+        menu.style.transform = "translateY(0)";
+    } else {
+        menu.style.opacity = "0";
+        menu.style.visibility = "hidden";
+        menu.style.transform = "translateY(-10px)";
+    }
+}
+
+// Fonction générique pour un menu hamburger
+function initBurgerMenu(buttonSelector, listSelector) {
+    const button = document.querySelector(buttonSelector);
+    const list = document.querySelector(listSelector);
+    if (!button || !list) return;
+
+    let isOpen = false;
+
+    button.addEventListener("click", (e) => {
+        e.stopPropagation();
+        isOpen = !isOpen;
+        toggleMenu(list, isOpen);
+    });
+
+    document.addEventListener("click", (e) => {
+        if (isOpen && !button.contains(e.target) && !list.contains(e.target)) {
+            isOpen = false;
+            toggleMenu(list, isOpen);
+        }
+    });
+}
 
 
 // Gestion de l'affichage des travaux dans les deux galeries (principale & modale)
@@ -141,8 +179,10 @@ function filters(categoryId) {
 
 // Gestion de l'affichage en mode connecté/déconnecté
 function loginLogoutDisplay() {
-    const headerLoginButton = document.querySelector("#header-login-button");
-    const headerLogoutButton = document.querySelector("#header-logout-button");
+    const headerLoginButton = document.querySelector(".header-login-button");
+    const headerLogoutButton = document.querySelector(".header-logout-button");
+    const headerLoginButtonBurgerMenu = document.querySelector(".header-login-button2");
+    const headerLogoutButtonBurgerMenu = document.querySelector(".header-logout-button2");
     const filtersDiv = document.querySelector("#filters");
     const modifyImg = document.querySelector(".image-modify");
     const modifyArticle = document.querySelector(".article-modify");
@@ -151,6 +191,8 @@ function loginLogoutDisplay() {
     if (sessionStorage.getItem("token")) {
         headerLoginButton.style.display = "none";
         headerLogoutButton.style.display = "block";
+        headerLoginButtonBurgerMenu.style.display = "none";
+        headerLogoutButtonBurgerMenu.style.display = "block";
         modifyImg.style.display = "block";
         modifyArticle.style.display = "block";
         modifyPortfolio.style.display = "block";
@@ -159,6 +201,8 @@ function loginLogoutDisplay() {
     } else {
         headerLoginButton.style.display = "block";
         headerLogoutButton.style.display = "none";
+        headerLoginButtonBurgerMenu.style.display = "block";
+        headerLogoutButtonBurgerMenu.style.display = "none";
         modifyImg.style.display = "none";
         modifyArticle.style.display = "none";
         modifyPortfolio.style.display = "none";
@@ -183,13 +227,18 @@ function backToTopButton() {
 };
 
 
-// Bouton de déconnexion de la page d'accueil
+// Boutons de déconnexion de la page d'accueil
 function logoutMainPage() {
-    const headerLogoutButton = document.querySelector("#header-logout-button");
+    const headerLogoutButton = document.querySelector(".header-logout-button");
+    const headerLogoutButtonBurgerMenu = document.querySelector(".header-logout-button2");
     headerLogoutButton.addEventListener("click", function () {
         sessionStorage.removeItem("token");
         loginLogoutDisplay();
     });
+    headerLogoutButtonBurgerMenu.addEventListener("click", function () {
+        sessionStorage.removeItem("token");
+        loginLogoutDisplay();
+    })
 };
 
 
